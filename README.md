@@ -3,9 +3,10 @@
 </p>
 
 <p align="center"><b>ZeroOne is an application that provides ticketing system functionalities for IT helpdesk department.</b></p>
+<p align="center">Work in progress!</b></p>
 
 Used technologies:
-- Java 17 with Spring Boot 3 (with RestAPI, Spring Security, Spring Data JPA, MimeMailMessage, Lombok, Maven and more)
+- Java 17 with Spring Boot 3 (with RestAPI, Spring Security, Spring Data JPA, JAvaMailMessage, Lombok, Maven and more)
 - Azure Cloud with Azure Active Directory (OAuth 2)
 - PostgreSQL Database
 
@@ -19,7 +20,7 @@ Check also ZeroOne-TicketingSystem-Frontend repository for more informations abo
 
 
 
-Login preview (from 15.03.2023):
+Preview video (from 03.04.2023):
 
-https://user-images.githubusercontent.com/95986791/225425985-4df632c5-b219-4856-bfd8-83521d72ca40.mp4
+https://user-images.githubusercontent.com/95986791/229596732-abcb4c89-9ee4-45f3-bd4a-ba38b6582065.mp4
 
