@@ -27,6 +27,8 @@ public class Ticket {
     @Column(nullable = false, length = 50)
     private String name;
 
+    private String ticketStatus;
+
     @ManyToOne
     private User user;
 

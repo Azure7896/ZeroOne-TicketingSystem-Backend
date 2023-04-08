@@ -23,4 +23,8 @@ public class TicketService {
     public void saveTicket(Ticket ticket) {
         ticketRepository.save(ticket);
     }
+
+    public Ticket getTicketFromDatabaseById(Long id) {
+        return ticketRepository.getById(id);
+    }
 }
