@@ -1,6 +1,7 @@
 package com.zeroone.controller;
 
 
+import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.model.Ticket;
 import com.zeroone.service.TicketService;
 import org.modelmapper.ModelMapper;
@@ -25,20 +26,21 @@ public class TicketController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Ticket> getAllTickets() {
-        return ticketService.getAllTicketsFromDatabase();
+    public List<TicketDto> getAllTickets() {
     }
 
     @PostMapping
-    public void addTicket(@RequestBody Ticket ticket) {
+    public void addTicket(@RequestBody TicketDto ticketDto) {
+        Ticket ticket = new Ticket();
+        ticket = modelMapper.map(ticketDto, Ticket.class);
         ticketService.saveTicket(ticket);
     }
 
 
     @PutMapping("/modify/{id}")
-    public void modifyTicket (@RequestBody Ticket ticket, @PathVariable Long id) {
+    public void modifyTicket (@RequestBody TicketDto ticketDto, @PathVariable Long id) {
         Ticket ticketToModify = ticketService.getTicketFromDatabaseById(id);
-        ticketToModify = modelMapper.map(ticket, Ticket.class);
+        ticketToModify = modelMapper.map(ticketDto, Ticket.class);
         ticketService.saveTicket(ticketToModify);
     }
 
