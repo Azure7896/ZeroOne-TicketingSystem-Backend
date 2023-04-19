@@ -18,7 +18,9 @@ Used applications:
 
 Check also ZeroOne-TicketingSystem-Frontend repository for more informations about client layer created in Angular.
 
+Preview video (from 19.04.2023): 
 
+https://user-images.githubusercontent.com/95986791/233039597-2f6e0e52-571b-44ac-a0c8-b0361c5fd3ae.mp4
 
 Preview video (from 03.04.2023):
 
