@@ -6,7 +6,7 @@
 <p align="center">Work in progress!</b></p>
 
 Used technologies:
-- Java 17 with Spring Boot 3 (with RestAPI, Spring Security, Spring Data JPA, JAvaMailMessage, Lombok, Maven and more)
+- Java 17 with Spring Boot 3 (with RestAPI, Spring Security, Spring Data JPA, JavaMailSender, Lombok, Maven and more)
 - Azure Cloud with Azure Active Directory (OAuth 2)
 - PostgreSQL Database
 
@@ -18,7 +18,9 @@ Used applications:
 
 Check also ZeroOne-TicketingSystem-Frontend repository for more informations about client layer created in Angular.
 
+Preview video (from 19.04.2023): 
 
+https://user-images.githubusercontent.com/95986791/233039597-2f6e0e52-571b-44ac-a0c8-b0361c5fd3ae.mp4
 
 Preview video (from 03.04.2023):
 

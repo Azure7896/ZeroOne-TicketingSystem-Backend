@@ -30,16 +30,15 @@ public class Ticket {
     private String ticketStatus;
 
     @ManyToOne
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date createdDate;
 
-    public Ticket(String ticketNumber, String name, User user, Date createdDate) {
-        this.ticketNumber = ticketNumber;
-        this.name = name;
-        this.user = user;
-        this.createdDate = createdDate;
-    }
+    @ManyToOne
+    @JoinColumn(name = "attendant_id")
+    private User attendant;
+
 }

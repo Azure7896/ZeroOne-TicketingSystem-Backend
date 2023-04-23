@@ -26,14 +26,16 @@ public class TicketController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TicketDto> getAllTickets() {
+    public List<Ticket> getAllTickets() {
+        System.out.println(ticketService.getLastTicketFromDatabase().getTicketNumber());
+        return ticketService.getAllTicketsFromDatabase();
     }
 
     @PostMapping
     public void addTicket(@RequestBody TicketDto ticketDto) {
         Ticket ticket = new Ticket();
         ticket = modelMapper.map(ticketDto, Ticket.class);
-        ticketService.saveTicket(ticket);
+        ticketService.saveNewTicket(ticket);
     }
 
 
@@ -41,7 +43,7 @@ public class TicketController {
     public void modifyTicket (@RequestBody TicketDto ticketDto, @PathVariable Long id) {
         Ticket ticketToModify = ticketService.getTicketFromDatabaseById(id);
         ticketToModify = modelMapper.map(ticketDto, Ticket.class);
-        ticketService.saveTicket(ticketToModify);
+        ticketService.saveNewTicket(ticketToModify);
     }
 
 }
