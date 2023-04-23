@@ -14,6 +14,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findAll();
 
     Ticket getById(Long id);
-
-    Ticket findTopByOrderByIdDesc();
+    Ticket findFirstByOrderByIdDesc();
 }
