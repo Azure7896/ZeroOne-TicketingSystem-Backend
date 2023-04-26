@@ -6,6 +6,7 @@ import com.zeroone.model.Ticket;
 import com.zeroone.service.TicketService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tickets")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TicketController {
 
     private final TicketService ticketService;
@@ -26,24 +28,22 @@ public class TicketController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Ticket> getAllTickets() {
-        System.out.println(ticketService.getLastTicketFromDatabase().getTicketNumber());
-        return ticketService.getAllTicketsFromDatabase();
+    public ResponseEntity<?> getAllTickets() {
+        return new ResponseEntity<>(ticketService.getAllTicketsFromDatabaseByTicketDtoList(), HttpStatus.OK);
     }
 
     @PostMapping
-    public void addTicket(@RequestBody TicketDto ticketDto) {
-        Ticket ticket = new Ticket();
-        ticket = modelMapper.map(ticketDto, Ticket.class);
-        ticketService.saveNewTicket(ticket);
+    public ResponseEntity<?> addTicket(@RequestBody TicketDto ticketDto) {
+        ticketService.saveNewTicket(ticketDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     @PutMapping("/modify/{id}")
     public void modifyTicket (@RequestBody TicketDto ticketDto, @PathVariable Long id) {
-        Ticket ticketToModify = ticketService.getTicketFromDatabaseById(id);
-        ticketToModify = modelMapper.map(ticketDto, Ticket.class);
-        ticketService.saveNewTicket(ticketToModify);
+//        Ticket ticketToModify = ticketService.getTicketFromDatabaseById(id);
+//        ticketToModify = modelMapper.map(ticketDto, Ticket.class);
+//        ticketService.saveNewTicket(ticketToModify);
     }
 
 }

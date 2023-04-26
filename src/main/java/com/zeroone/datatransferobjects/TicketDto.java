@@ -22,4 +22,6 @@ public class TicketDto {
     private User user;
 
     private Date createdDate;
+
+    private User attendant;
 }
