@@ -1,11 +1,13 @@
 package com.zeroone.service;
 
+import com.zeroone.enums.TicketStatus;
 import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.model.Ticket;
 import com.zeroone.repository.TicketRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,10 +20,13 @@ public class TicketService {
 
     private final ModelMapper modelMapper;
 
-    public TicketService(TicketRepository ticketRepository, NameCreatorService nameCreatorService, ModelMapper modelMapper) {
+    private final TimeService timeService;
+
+    public TicketService(TicketRepository ticketRepository, NameCreatorService nameCreatorService, ModelMapper modelMapper, TimeService timeService) {
         this.ticketRepository = ticketRepository;
         this.nameCreatorService = nameCreatorService;
         this.modelMapper = modelMapper;
+        this.timeService = timeService;
     }
 
     //Get all tickets from database with all fields
@@ -29,12 +34,13 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    //Map list of Tickets from database with all fields to Ticket Data Transfer Object list
+    //Map list of Tickets from database with all fields to Ticket Data Transfer Object list and calculate these times
     public List<TicketDto> mapTicketsToTicketDtoList() {
         List<Ticket> ticketList = this.getAllTicketsFromDatabase();
         return ticketList.stream()
                 .map(ticket -> new TicketDto(ticket.getTicketNumber(), ticket.getName(),
-                        ticket.getTicketStatus(), ticket.getUser(), ticket.getCreatedDate(), ticket.getAttendant()))
+                        ticket.getTicketStatus(), ticket.getUser(), ticket.getCreatedDate(), ticket.getAttendant(),
+                        timeService.createTimeRemaining(ticket.getCreatedDate())))
                 .toList();
     }
 
@@ -47,15 +53,10 @@ public class TicketService {
     public void saveNewTicket(TicketDto ticketDto) {
         Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
         ticket.setTicketNumber(nameCreatorService.createTicketNumber());
+        ticket.setTicketStatus(TicketStatus.NEW.toString());
+        ticket.setCreatedDate(new Date());
         ticketRepository.save(ticket);
     }
 
-    public Ticket getTicketFromDatabaseById(Long id) {
-        return ticketRepository.getById(id);
-    }
-
-    public Ticket getLastTicketFromDatabase() {
-        return ticketRepository.findFirstByOrderByIdDesc();
-    }
 
 }

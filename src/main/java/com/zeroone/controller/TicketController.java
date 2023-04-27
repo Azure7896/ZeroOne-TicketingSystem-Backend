@@ -19,15 +19,11 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-    private final ModelMapper modelMapper;
-
-    public TicketController(TicketService ticketService, ModelMapper modelMapper) {
+    public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getAllTickets() {
         return new ResponseEntity<>(ticketService.getAllTicketsFromDatabaseByTicketDtoList(), HttpStatus.OK);
     }

@@ -24,4 +24,6 @@ public class TicketDto {
     private Date createdDate;
 
     private User attendant;
+
+    private String timeToEnd;
 }
