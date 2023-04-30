@@ -31,7 +31,7 @@ public class TicketService {
 
     //Get all tickets from database with all fields
     public List<Ticket> getAllTicketsFromDatabase() {
-        return ticketRepository.findAll();
+        return ticketRepository.findAllTickets();
     }
 
     //Map list of Tickets from database with all fields to Ticket Data Transfer Object list and calculate these times
