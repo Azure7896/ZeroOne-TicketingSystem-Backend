@@ -1,6 +1,5 @@
 package com.zeroone.service;
 
-
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -14,7 +13,9 @@ public class TimeService {
 
     private long calculateTimeBetweenDates(Date date) {
         Date currentDate = new Date();
-        return Math.abs(currentDate.getTime() - date.getTime());
+        
+        return currentDate.getTime() - date.getTime();
+        
     }
 
     private long calculateTimeRemaining(Date date) {

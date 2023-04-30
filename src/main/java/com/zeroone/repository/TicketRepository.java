@@ -11,7 +11,9 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    List<Ticket> findAll();
+
+    @Query("select distinct t from Ticket t join fetch t.user")
+    List<Ticket> findAllTickets();
 
     Ticket getById(Long id);
     Ticket findFirstByOrderByIdDesc();
