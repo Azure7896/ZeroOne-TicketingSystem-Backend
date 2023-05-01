@@ -2,7 +2,7 @@ package com.zeroone.service;
 
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -11,21 +11,30 @@ public class TimeService {
 
     private final long TWENTY_FOUR_HOURS_IN_MILLIS = TimeUnit.HOURS.toMillis(24);
 
-    private long calculateTimeBetweenDates(Date date) {
-        Date currentDate = new Date();
-        
-        return currentDate.getTime() - date.getTime();
-        
+    private int calculateTimeBetweenDatesInSeconds(Date date) {
+        Timestamp createdDate = new Timestamp(date.getTime());
+        Timestamp currentDate = new Timestamp(new Date().getTime());
+        return (int)(currentDate.getTime() - createdDate.getTime())/1000;
     }
 
-    private long calculateTimeRemaining(Date date) {
-        long timeInMillisBetweenDates = this.calculateTimeBetweenDates(date);
-        System.out.println("Second method" + ( this.TWENTY_FOUR_HOURS_IN_MILLIS - timeInMillisBetweenDates));
-        return this.TWENTY_FOUR_HOURS_IN_MILLIS - timeInMillisBetweenDates;
+    private int calculateTimeRemainingInSeconds(Date date) {
+        int timeInMillisBetweenDates = this.calculateTimeBetweenDatesInSeconds(date);
+        return (int) this.TWENTY_FOUR_HOURS_IN_MILLIS/1000 - timeInMillisBetweenDates;
     }
 
     public String createTimeRemaining(Date date) {
-        long timeRemaining = this.calculateTimeRemaining(date);
-        return (new SimpleDateFormat("HH:mm")).format(new Date(timeRemaining));
+        int timeRemaining = this.calculateTimeRemainingInSeconds(date);
+        int hours = timeRemaining / 3600;
+        int minutes = (timeRemaining % 3600) / 60;
+
+        if (this.isTimeExceeded(hours)) {
+            return "Czas przekroczony!";
+        } else {
+            return hours + "H " + minutes + "M";
+        }
+    }
+
+    public boolean isTimeExceeded(int hours) {
+        return hours < 0;
     }
 }
