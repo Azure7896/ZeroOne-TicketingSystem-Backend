@@ -3,6 +3,7 @@ package com.zeroone.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -39,5 +40,9 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "attendant_id")
     private User attendant;
+
+    @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    private TicketBody ticketBody;
 
 }

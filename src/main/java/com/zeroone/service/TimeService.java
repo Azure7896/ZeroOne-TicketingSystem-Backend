@@ -24,17 +24,17 @@ public class TimeService {
 
     public String createTimeRemaining(Date date) {
         int timeRemaining = this.calculateTimeRemainingInSeconds(date);
-        int hours = timeRemaining / 3600;
-        int minutes = (timeRemaining % 3600) / 60;
 
-        if (this.isTimeExceeded(hours)) {
+        if (this.isTimeExceeded(timeRemaining)) {
             return "Czas przekroczony!";
         } else {
+            int hours = timeRemaining / 3600;
+            int minutes = (timeRemaining % 3600) / 60;
             return hours + "H " + minutes + "M";
         }
     }
 
-    public boolean isTimeExceeded(int hours) {
-        return hours < 0;
+    public boolean isTimeExceeded(long timeInMillis) {
+        return timeInMillis < 0;
     }
 }
