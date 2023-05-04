@@ -1,6 +1,7 @@
 package com.zeroone.controller;
 
 
+import com.zeroone.datatransferobjects.NewTicketDto;
 import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.model.Ticket;
 import com.zeroone.service.TicketService;
@@ -29,8 +30,8 @@ public class TicketController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addTicket(@RequestBody TicketDto ticketDto) {
-        ticketService.saveNewTicket(ticketDto);
+    public ResponseEntity<?> saveTicket(@RequestBody NewTicketDto newTicketDto) {
+        ticketService.saveNewTicket(newTicketDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
