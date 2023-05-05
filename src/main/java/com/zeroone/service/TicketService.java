@@ -23,16 +23,14 @@ public class TicketService {
 
     private final NameCreatorService nameCreatorService;
 
-    private final ModelMapper modelMapper;
 
     private final TimeService timeService;
 
     private final UserRepository userRepository;
 
-    public TicketService(TicketRepository ticketRepository, NameCreatorService nameCreatorService, ModelMapper modelMapper, TimeService timeService, UserRepository userRepository) {
+    public TicketService(TicketRepository ticketRepository, NameCreatorService nameCreatorService, TimeService timeService, UserRepository userRepository) {
         this.ticketRepository = ticketRepository;
         this.nameCreatorService = nameCreatorService;
-        this.modelMapper = modelMapper;
         this.timeService = timeService;
         this.userRepository = userRepository;
     }
