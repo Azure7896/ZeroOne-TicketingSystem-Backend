@@ -11,6 +11,12 @@ public class TimeService {
 
     private final long TWENTY_FOUR_HOURS_IN_MILLIS = TimeUnit.HOURS.toMillis(24);
 
+    private final StringBuilder stringBuilder;
+
+    public TimeService() {
+        stringBuilder = new StringBuilder();
+    }
+
     private int calculateTimeBetweenDatesInSeconds(Date date) {
         Timestamp createdDate = new Timestamp(date.getTime());
         Timestamp currentDate = new Timestamp(new Date().getTime());
@@ -30,7 +36,8 @@ public class TimeService {
         } else {
             int hours = timeRemaining / 3600;
             int minutes = (timeRemaining % 3600) / 60;
-            return hours + "H " + minutes + "M";
+            stringBuilder.append(hours).append("H ").append(minutes).append("M");
+            return stringBuilder.toString();
         }
     }
 
