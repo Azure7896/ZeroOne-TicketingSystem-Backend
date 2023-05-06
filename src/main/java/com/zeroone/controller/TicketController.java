@@ -3,29 +3,24 @@ package com.zeroone.controller;
 
 import com.zeroone.datatransferobjects.NewTicketDto;
 import com.zeroone.datatransferobjects.TicketDto;
-import com.zeroone.model.Ticket;
 import com.zeroone.service.TicketService;
-import org.modelmapper.ModelMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
 @RequestMapping("/tickets")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class TicketController {
 
     private final TicketService ticketService;
 
-    public TicketController(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
-
     @GetMapping
     public ResponseEntity<?> getAllTickets() {
+            ticketService.getAllTicketsFromDatabaseByTicketDtoList();
         return new ResponseEntity<>(ticketService.getAllTicketsFromDatabaseByTicketDtoList(), HttpStatus.OK);
     }
 
