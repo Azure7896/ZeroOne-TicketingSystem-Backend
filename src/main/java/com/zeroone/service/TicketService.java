@@ -5,18 +5,18 @@ import com.zeroone.enums.TicketStatus;
 import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.model.Ticket;
 import com.zeroone.model.TicketBody;
-import com.zeroone.model.User;
 import com.zeroone.repository.TicketRepository;
 import com.zeroone.repository.UserRepository;
-import org.modelmapper.ModelMapper;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 @Service
+@AllArgsConstructor
 public class TicketService {
 
     private final TicketRepository ticketRepository;
@@ -28,21 +28,14 @@ public class TicketService {
 
     private final UserRepository userRepository;
 
-    public TicketService(TicketRepository ticketRepository, NameCreatorService nameCreatorService, TimeService timeService, UserRepository userRepository) {
-        this.ticketRepository = ticketRepository;
-        this.nameCreatorService = nameCreatorService;
-        this.timeService = timeService;
-        this.userRepository = userRepository;
-    }
 
     //Get all tickets from database with all fields
-    public List<Ticket> getAllTicketsFromDatabase() {
-        return ticketRepository.findAllTickets();
-    }
 
     //Map list of Tickets from database with all fields to Ticket Data Transfer Object list and calculate their times
-    public List<TicketDto> mapTicketsToTicketDtoList() {
-        List<Ticket> ticketList = this.getAllTicketsFromDatabase();
+    public List<TicketDto> mapTicketsToTicketDtoList() throws EntityNotFoundException{
+        List<Ticket> ticketList = ticketRepository.findAll();
+        if (ticketList.isEmpty()) throw new EntityNotFoundException("ENTITY_NOT_FOUND");
+
         return ticketList.stream()
                 .map(ticket -> new TicketDto(ticket.getTicketNumber(), ticket.getName(),
                         ticket.getTicketStatus(), ticket.getUser(), ticket.getCreatedDate(), ticket.getAttendant(),
