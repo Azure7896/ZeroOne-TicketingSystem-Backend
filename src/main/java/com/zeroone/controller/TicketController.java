@@ -5,6 +5,7 @@ import com.zeroone.datatransferobjects.NewTicketDto;
 import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.service.TicketService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/tickets")
 @CrossOrigin(origins = "http://localhost:4200")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TicketController {
 
     private final TicketService ticketService;

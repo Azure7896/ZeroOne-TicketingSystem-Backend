@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "tickets_bodies")
 public class TicketBody {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
