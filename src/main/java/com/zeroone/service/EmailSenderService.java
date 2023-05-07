@@ -2,7 +2,9 @@ package com.zeroone.service;
 
 import jakarta.mail.Multipart;
 import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -12,15 +14,12 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 
 @Service
+@RequiredArgsConstructor
 public class EmailSenderService {
 
     private final JavaMailSender javaMailSender;
 
     private final String EMAIL_FROM = "example@example.com";
-
-    public EmailSenderService(JavaMailSender mailSender) {
-        this.javaMailSender = mailSender;
-    }
 
     @Async
     public void sendEmail(String toEmail, String subject, String body) {
