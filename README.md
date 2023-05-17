@@ -15,6 +15,7 @@ Used applications:
 - IntelliJ IDEA
 - Postman
 - pgAdmin
+- Docker
 
 Check also ZeroOne-TicketingSystem-Frontend repository for more informations about client layer created in Angular.
 
