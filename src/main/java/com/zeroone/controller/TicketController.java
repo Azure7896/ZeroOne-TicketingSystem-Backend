@@ -4,7 +4,6 @@ package com.zeroone.controller;
 import com.zeroone.datatransferobjects.NewTicketDto;
 import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.service.TicketService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

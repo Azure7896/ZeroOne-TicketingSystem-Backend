@@ -1,6 +1,7 @@
 package com.zeroone.repository;
 
 import com.zeroone.model.Ticket;
+import jakarta.persistence.OrderBy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Query("select distinct t from Ticket t join fetch t.user")
+    @OrderBy("tickerNumber desc")
     List<Ticket> findAllTickets();
 
     Ticket getById(Long id);
