@@ -33,9 +33,8 @@ public class TicketService {
 
     //Map list of Tickets from database with all fields to Ticket Data Transfer Object list and calculate their times
     public List<TicketDto> mapTicketsToTicketDtoList() throws EntityNotFoundException{
-        List<Ticket> ticketList = ticketRepository.findAll();
+        List<Ticket> ticketList = ticketRepository.findAllTickets();
         if (ticketList.isEmpty()) throw new EntityNotFoundException("ENTITY_NOT_FOUND");
-
         return ticketList.stream()
                 .map(ticket -> new TicketDto(ticket.getTicketNumber(), ticket.getName(),
                         ticket.getTicketStatus(), ticket.getUser(), ticket.getCreatedDate(), ticket.getAttendant(),
@@ -57,7 +56,6 @@ public class TicketService {
                 .ticketStatus(TicketStatus.NEW.toString())
                 .user(userRepository.findUserById(1L))
                 .createdDate(new Date())
-                .ticketStatus(TicketStatus.NEW.toString())
                 .build();
 
         ticketRepository.save(newTicket);

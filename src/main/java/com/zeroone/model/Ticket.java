@@ -20,7 +20,7 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = 6)
+    @Column(nullable = false, length = 6, unique = true)
     private String ticketNumber;
 
     @Column(nullable = false, length = 50)
