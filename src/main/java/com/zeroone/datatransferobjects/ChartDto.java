@@ -12,4 +12,6 @@ import java.util.List;
 public class ChartDto {
 
     private List<String> sortedDaysFromToday;
+
+    private List<Integer> numberOfTicketsFromTheLastDays;
 }

@@ -10,7 +10,7 @@ public class TicketBody {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(length = 3000)
+    @Column(length = 3000, nullable = false)
     String ticketBody;
 
     public TicketBody(String ticketBody) {
