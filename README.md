@@ -19,9 +19,9 @@ Used applications:
 
 Check also ZeroOne-TicketingSystem-Frontend repository for more informations about client layer created in Angular.
 
-Preview image (from 29.05.2023), size of these charts will be changed:
+Preview image (from 30.05.2023), size of these charts will be changed:
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/c67443ec-cc91-4213-acd3-3e7c8e64956a)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/685d5e32-8c07-46c1-8882-f439f3fc8cca)
 
 Preview video (from 19.04.2023): 
 
