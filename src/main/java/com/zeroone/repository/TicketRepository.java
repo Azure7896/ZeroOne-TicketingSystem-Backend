@@ -6,18 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    @Query("select distinct t from Ticket t join fetch t.user")
-    @OrderBy("tickerNumber desc")
+    @Query("select distinct t from Ticket t join fetch t.user order by t.ticketNumber desc")
     List<Ticket> findAllTickets();
 
     Ticket getById(Long id);
     Ticket findFirstByOrderByIdDesc();
 
+//    List<Ticket> findByCreatedDateBetween(Date today, Date sevenDaysBefore);
+    Integer countByCreatedDate(Date date);
 
 }

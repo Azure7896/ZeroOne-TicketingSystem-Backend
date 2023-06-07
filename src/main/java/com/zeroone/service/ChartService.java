@@ -1,9 +1,10 @@
 package com.zeroone.service;
 
+import com.zeroone.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.DocFlavor;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -12,6 +13,10 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class ChartService {
+
+
+    @Autowired
+    private TicketRepository ticketRepository;
 
     private final List<String> daysOfWeek = Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun");
 
@@ -25,8 +30,22 @@ public class ChartService {
         int index = daysOfWeek.indexOf(day);
         List<String> firstSubList =  daysOfWeek.subList(index, daysOfWeek.size());
         List<String> secondSubList = daysOfWeek.subList(0, index);
-        return Stream.concat(firstSubList.stream(), secondSubList.stream()).toList();
+        List<String> sortedDays = new ArrayList<>(Stream.concat(firstSubList.stream(), secondSubList.stream()).toList());
+        Collections.reverse(sortedDays);
+        sortedDays.set(sortedDays.size() - 1, sortedDays.get(firstSubList.size() - 1) + " (Today)");
+        return sortedDays;
     }
 
+    public List<Integer> getTicketsCountForEachDay() {
+        Calendar calendar = Calendar.getInstance();
+
+        ArrayList<Integer> ticketsCountForEachDay = new ArrayList<>();
+        for (byte i = -1; i >=-7; i--) {
+            calendar.add(Calendar.DAY_OF_MONTH, i);
+            Date dayInDateFormat = calendar.getTime();
+            ticketsCountForEachDay.add(ticketRepository.countByCreatedDate(dayInDateFormat));
+        }
+        return ticketsCountForEachDay;
+    }
 
 }

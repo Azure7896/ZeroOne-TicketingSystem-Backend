@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TicketBodyRepository extends JpaRepository <TicketBody, Long> {
+
 }
