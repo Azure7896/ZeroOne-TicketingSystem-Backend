@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ChartDto {
+public class ChartGetDto {
 
     private List<String> sortedDaysFromToday;
 

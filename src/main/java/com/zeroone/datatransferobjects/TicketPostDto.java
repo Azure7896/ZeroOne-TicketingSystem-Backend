@@ -1,6 +1,5 @@
 package com.zeroone.datatransferobjects;
 
-import com.zeroone.model.TicketBody;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class NewTicketDto {
+public class TicketPostDto {
 
     private String name;
 

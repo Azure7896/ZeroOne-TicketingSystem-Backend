@@ -36,16 +36,15 @@ public class ChartService {
         return sortedDays;
     }
 
-    public List<Integer> getTicketsCountForEachDay() {
+    public List<Long> getTicketsCountForEachDay() {
         Calendar calendar = Calendar.getInstance();
-
-        ArrayList<Integer> ticketsCountForEachDay = new ArrayList<>();
+        Date today = calendar.getTime();
+        ArrayList<Long> ticketsCountForEachDay = new ArrayList<>();
         for (byte i = -1; i >=-7; i--) {
             calendar.add(Calendar.DAY_OF_MONTH, i);
             Date dayInDateFormat = calendar.getTime();
-            ticketsCountForEachDay.add(ticketRepository.countByCreatedDate(dayInDateFormat));
+            ticketsCountForEachDay.add(ticketRepository.countAllByCreatedDate(dayInDateFormat));
         }
         return ticketsCountForEachDay;
     }
-
 }

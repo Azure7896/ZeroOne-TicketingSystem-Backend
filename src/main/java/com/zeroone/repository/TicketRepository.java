@@ -13,13 +13,13 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    @Query("select distinct t from Ticket t join fetch t.user order by t.ticketNumber desc")
+    @Query("select distinct t from Ticket t join fetch t.user order by t.createdDate desc")
     List<Ticket> findAllTickets();
 
     Ticket getById(Long id);
     Ticket findFirstByOrderByIdDesc();
 
 //    List<Ticket> findByCreatedDateBetween(Date today, Date sevenDaysBefore);
-    Integer countByCreatedDate(Date date);
+    Long countAllByCreatedDate(Date date);
 
 }

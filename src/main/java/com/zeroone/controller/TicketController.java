@@ -1,7 +1,7 @@
 package com.zeroone.controller;
 
 
-import com.zeroone.datatransferobjects.NewTicketDto;
+import com.zeroone.datatransferobjects.TicketPostDto;
 import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.service.TicketService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class TicketController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveTicket(@RequestBody NewTicketDto newTicketDto) {
+    public ResponseEntity<?> saveTicket(@RequestBody TicketPostDto newTicketDto) {
         ticketService.saveNewTicket(newTicketDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
