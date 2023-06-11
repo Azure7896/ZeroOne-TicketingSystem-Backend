@@ -1,6 +1,6 @@
 package com.zeroone.service;
 
-import com.zeroone.datatransferobjects.NewTicketDto;
+import com.zeroone.datatransferobjects.TicketPostDto;
 import com.zeroone.enums.TicketStatus;
 import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.model.Ticket;
@@ -48,7 +48,7 @@ public class TicketService {
     }
 
 
-    public void saveNewTicket(NewTicketDto newTicketDto) {
+    public void saveNewTicket(TicketPostDto newTicketDto) {
         Ticket newTicket = Ticket.builder()
                 .name(newTicketDto.getName())
                 .ticketNumber(nameCreatorService.createTicketNumber())

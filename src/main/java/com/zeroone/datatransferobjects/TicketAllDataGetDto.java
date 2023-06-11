@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TicketFullDataDto {
+public class TicketAllDataGetDto {
     private String ticketNumber;
 
     private String name;
