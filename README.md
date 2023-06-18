@@ -7,7 +7,6 @@
 
 Used technologies:
 - Java 17 with Spring Boot 3 (with RestAPI, Spring Security, Spring Data JPA, JavaMailSender, Lombok, Maven and more)
-- Azure Cloud with Azure Active Directory (OAuth 2)
 - PostgreSQL Database
 
 
