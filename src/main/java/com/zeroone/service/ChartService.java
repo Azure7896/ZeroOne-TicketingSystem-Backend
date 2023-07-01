@@ -32,7 +32,7 @@ public class ChartService {
         List<String> secondSubList = daysOfWeek.subList(0, index);
         List<String> sortedDays = new ArrayList<>(Stream.concat(firstSubList.stream(), secondSubList.stream()).toList());
         Collections.reverse(sortedDays);
-        sortedDays.set(sortedDays.size() - 1, sortedDays.get(firstSubList.size() - 1) + " (Today)");
+//        sortedDays.set(sortedDays.size() - 1, sortedDays.get(firstSubList.size()) + " (Today)");
         return sortedDays;
     }
 

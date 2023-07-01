@@ -20,7 +20,6 @@ public class TicketController {
 
     @GetMapping
     public ResponseEntity<?> getAllTickets() {
-            ticketService.getAllTicketsFromDatabaseByTicketDtoList();
         return new ResponseEntity<>(ticketService.getAllTicketsFromDatabaseByTicketDtoList(), HttpStatus.OK);
     }
 

@@ -4,25 +4,25 @@ public enum TicketStatus {
 
     NEW {
         public String toString() {
-            return "Nowy";
+            return "New";
         }
     },
 
     IN_PROGRESS {
         public String toString() {
-            return "W toku";
+            return "In progress";
         }
     },
 
     CLOSED {
         public String toString() {
-            return "Zamknięty";
+            return "Closed";
         }
     },
 
     SUSPENDED {
         public String toString() {
-            return "Wstrzymany";
+            return "Suspended";
         }
     },
 
