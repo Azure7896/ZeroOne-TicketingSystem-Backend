@@ -22,4 +22,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 //    List<Ticket> findByCreatedDateBetween(Date today, Date sevenDaysBefore);
     Long countAllByCreatedDate(Date date);
 
+    List <Ticket> findByName(String name);
+
 }

@@ -26,7 +26,7 @@ public class TimeService {
         int timeRemaining = this.calculateTimeRemainingInSeconds(date);
 
         if (this.isTimeExceeded(timeRemaining)) {
-            return "Czas przekroczony!";
+            return "Pick-up time exceeded";
         } else {
             int hours = timeRemaining / 3600;
             int minutes = (timeRemaining % 3600) / 60;
