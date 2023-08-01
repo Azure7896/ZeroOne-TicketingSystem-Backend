@@ -22,7 +22,13 @@ Preview image (from 19.07.2023):
 
 ![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/9a4cf1f7-f264-4ae2-8ca8-cfea8cd4edf6)
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Backend/assets/95986791/1ccb8a6e-187c-4018-99be-2aa9f776f88b)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/1e9a9c25-2737-433d-bb5e-8471687d9168)
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/789a7d4c-5b50-46b9-8048-c88a409bb4c9)
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/6f8732c1-738d-4575-a225-51dba675c8d6)
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/3ab1568d-0467-4fc6-a81e-355049dcddad)
 
 
 Preview video (from 19.04.2023): 
