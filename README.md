@@ -18,17 +18,22 @@ Used applications:
 
 Check also ZeroOne-TicketingSystem-Frontend repository for more informations about client layer created in Angular.
 
-Preview image (from 19.07.2023):
+Preview (from 22.08.2023):
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/9a4cf1f7-f264-4ae2-8ca8-cfea8cd4edf6)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/2fd10d03-ec39-4793-9823-572c66a6c69b)
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/1e9a9c25-2737-433d-bb5e-8471687d9168)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/13633d37-7d92-407d-a045-78b508bf2c8a)
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/82d1e9e8-ad30-40ea-b8ba-68a73611f152)
 
 ![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/789a7d4c-5b50-46b9-8048-c88a409bb4c9)
 
 ![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/6f8732c1-738d-4575-a225-51dba675c8d6)
 
 ![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/3ab1568d-0467-4fc6-a81e-355049dcddad)
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/d5dca004-241a-4415-9468-3dc524d06285)
+
 
 
 Preview video (from 19.04.2023): 
