@@ -32,6 +32,8 @@ Preview (from 22.08.2023):
 
 ![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/3ab1568d-0467-4fc6-a81e-355049dcddad)
 
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Backend/assets/95986791/a7f213f9-18dd-4dcb-86f0-f196c11e1abf)
+
 ![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/d5dca004-241a-4415-9468-3dc524d06285)
 
 
