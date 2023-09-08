@@ -20,7 +20,9 @@ Check also ZeroOne-TicketingSystem-Frontend repository for more informations abo
 
 Preview (from 22.08.2023):
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/2fd10d03-ec39-4793-9823-572c66a6c69b)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/ca5e73bb-db01-43c3-b5c0-f48f0b94a28c)
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/9aefc387-a720-4648-accb-838e83ee387e)
 
 ![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/13633d37-7d92-407d-a045-78b508bf2c8a)
 
