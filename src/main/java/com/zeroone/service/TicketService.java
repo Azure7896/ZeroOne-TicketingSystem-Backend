@@ -1,10 +1,15 @@
 package com.zeroone.service;
 
-import com.zeroone.datatransferobjects.TicketPostDto;
-import com.zeroone.enums.TicketStatus;
+import com.zeroone.datatransferobjects.GET.TicketAllDataGetDto;
+import com.zeroone.datatransferobjects.GET.TicketReplyDto;
+import com.zeroone.datatransferobjects.POST.TicketPostDto;
+import com.zeroone.datatransferobjects.POST.TicketReplyPost;
 import com.zeroone.datatransferobjects.TicketDto;
+import com.zeroone.enums.TicketStatus;
 import com.zeroone.model.Ticket;
 import com.zeroone.model.TicketBody;
+import com.zeroone.model.TicketReply;
+import com.zeroone.repository.TicketReplyRepository;
 import com.zeroone.repository.TicketRepository;
 import com.zeroone.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,32 +28,112 @@ public class TicketService {
 
     private final NameCreatorService nameCreatorService;
 
-
     private final TimeService timeService;
 
     private final UserRepository userRepository;
 
+    private final TicketReplyRepository ticketReplyRepository;
 
-    //Get all tickets from database with all fields
 
-    //Map list of Tickets from database with all fields to Ticket Data Transfer Object list and calculate their times
-    public List<TicketDto> mapTicketsToTicketDtoList() throws EntityNotFoundException{
-        List<Ticket> ticketList = ticketRepository.findAllTickets();
-        if (ticketList.isEmpty()) throw new EntityNotFoundException("ENTITY_NOT_FOUND");
+    private List<Ticket> getAllTicketsFromDatabase() {
+        List<Ticket> allTicketsList = ticketRepository.findAllTickets();
+        if (allTicketsList.isEmpty()) throw new EntityNotFoundException("ENTITY_NOT_FOUND");
+        return allTicketsList;
+    }
+
+    public List<TicketDto> mapTicketsToTicketDtoList(List<Ticket> ticketList) {
         return ticketList.stream()
                 .map(ticket -> new TicketDto(ticket.getTicketNumber(), ticket.getName(),
                         ticket.getTicketStatus(), ticket.getUser(), ticket.getCreatedDate(), ticket.getAttendant(),
-                        timeService.createTimeRemaining(ticket.getCreatedDate())))
+                        timeService.createTimeRemaining(ticket.getCreatedDate(), ticket.getTicketStatus())))
                 .toList();
     }
 
-    //Get all ticket from database by TicketDto collection
-    public List<TicketDto> getAllTicketsFromDatabaseByTicketDtoList() {
-        return this.mapTicketsToTicketDtoList();
+    public List<TicketDto> getAllTicketsByStatus(String status) {
+        List<Ticket> ticketListByStatus = ticketRepository.findByTicketStatus(status);
+        return mapTicketsToTicketDtoList(ticketListByStatus);
     }
 
 
-    public void saveNewTicket(TicketPostDto newTicketDto) {
+    public List<TicketReplyDto> getAllTicketReplies(String ticketNumber) {
+        Ticket ticket = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
+        List<TicketReply> ticketReplies = ticketReplyRepository.findTicketRepliesByTicketOrderByReplyDate(ticket);
+        return mapTicketRepliesToTicketReplyDtoList(ticketReplies);
+    }
+
+    public List<TicketReplyDto> mapTicketRepliesToTicketReplyDtoList(List<TicketReply> ticketReplies) {
+        return ticketReplies.stream()
+                .map(reply -> new TicketReplyDto(reply.getTicketReply(), reply.getUser(), reply.getReplyDate()))
+                .toList();
+    }
+
+    public List<Ticket> searchTicketsByContain(String name) {
+        return ticketRepository.findByNameContainingIgnoreCaseOrderByTicketStatus(name);
+    }
+
+    public List<TicketDto> getAllTicketsFromDatabaseByTicketDtoList() {
+        return this.mapTicketsToTicketDtoList(getAllTicketsFromDatabase());
+    }
+
+    public TicketAllDataGetDto getOneTicketByTicketNumber(String ticketNumber) {
+        Ticket ticket = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
+        TicketAllDataGetDto ticketAllDataGetDto = TicketAllDataGetDto.builder()
+                .name(ticket.getName())
+                .ticketNumber(ticket.getTicketNumber())
+                .ticketBody(ticket.getTicketBody())
+                .ticketStatus(ticket.getTicketStatus())
+                .user(ticket.getUser())
+                .createdDate(ticket.getCreatedDate())
+                .timeToEnd(timeService.createTimeRemaining(ticket.getCreatedDate(), ticket.getTicketStatus()))
+                .build();
+
+        return ticketAllDataGetDto;
+    }
+
+    public void modifyTicketStatus(String ticketNumber, int status) {
+
+        Ticket ticketToUpdate = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
+
+        switch (status) {
+
+            case 1:
+                ticketToUpdate.setTicketStatus(TicketStatus.IN_PROGRESS.toString());
+                break;
+            case 2:
+                ticketToUpdate.setTicketStatus(TicketStatus.CLOSED.toString());
+                break;
+            case 3:
+                ticketToUpdate.setTicketStatus(TicketStatus.SUSPENDED.toString());
+                break;
+        }
+        ticketRepository.save(ticketToUpdate);
+    }
+
+    public void replyTicket(String ticketNumber, TicketReplyPost ticketReplyPost) {
+        Ticket ticket = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
+
+        //When ticket has status "New", change status to "In progress"
+
+        if(ticket.getTicketStatus().equals("New")) {
+            ticket.setTicketStatus(TicketStatus.IN_PROGRESS.toString());
+            ticketRepository.save(ticket);
+        } else if (ticket.getTicketStatus().equals("Closed")) {
+
+        } else {
+
+            TicketReply ticketReply = TicketReply.builder()
+                    .ticketReply(ticketReplyPost.getReplyBody())
+                    .replyDate(new Date())
+                    .ticket(ticket)
+                    .user(userRepository.findUserById(1L))
+                    .build();
+
+            ticketReplyRepository.save(ticketReply);
+        }
+    }
+
+
+    public Ticket saveNewTicket(TicketPostDto newTicketDto) {
         Ticket newTicket = Ticket.builder()
                 .name(newTicketDto.getName())
                 .ticketNumber(nameCreatorService.createTicketNumber())
@@ -58,7 +143,7 @@ public class TicketService {
                 .createdDate(new Date())
                 .build();
 
-        ticketRepository.save(newTicket);
+        return ticketRepository.save(newTicket);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.zeroone.datatransferobjects;
+package com.zeroone.datatransferobjects.GET;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

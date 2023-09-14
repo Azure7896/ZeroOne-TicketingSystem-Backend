@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -43,5 +44,9 @@ public class Ticket {
     @OneToOne
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private TicketBody ticketBody;
+
+    @OneToMany
+    @JoinColumn(name = "ticket_id")
+    private List<TicketReply> ticketReply;
 
 }

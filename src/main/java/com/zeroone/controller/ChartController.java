@@ -23,8 +23,8 @@ public class ChartController {
         return new ResponseEntity<>(chartService.sortDaysFromToday(), HttpStatus.OK);
     }
 
-    @GetMapping("/latest7days")
+    @GetMapping("/latst7days")
     public ResponseEntity<?> getTicketsCountForEeachDay() {
-        return new ResponseEntity<>(chartService.getTicketsCountForEachDay(), HttpStatus.OK);
+        return new ResponseEntity<>(chartService.countTicketsByLast7Days(), HttpStatus.OK);
     }
 }

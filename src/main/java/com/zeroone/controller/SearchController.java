@@ -15,8 +15,8 @@ public class SearchController {
     private final SearchService searchService;
 
     @GetMapping("/search")
-    public ResponseEntity<?> getSearchedTickets() {
-        return new ResponseEntity<>(searchService.searchTicketsByName(), HttpStatus.OK);
+    public ResponseEntity<?> getSearchedTickets(@RequestParam ("ticketname") String name) {
+        return new ResponseEntity<>(searchService.searchTicketsByName(name), HttpStatus.OK);
     }
 
 }

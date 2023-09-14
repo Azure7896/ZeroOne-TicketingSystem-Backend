@@ -2,41 +2,36 @@ package com.zeroone.service;
 
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class TimeService {
 
-    private final long TWENTY_FOUR_HOURS_IN_MILLIS = TimeUnit.HOURS.toMillis(24);
+    private static final long TWENTY_FOUR_HOURS_IN_SECONDS = 24 * 60 * 60;
 
-    private int calculateTimeBetweenDatesInSeconds(Date date) {
-        Timestamp createdDate = new Timestamp(date.getTime());
-        Timestamp currentDate = new Timestamp(new Date().getTime());
-        return (int)(currentDate.getTime() - createdDate.getTime())/1000;
-    }
+    public String createTimeRemaining(Date date, String status) {
+        LocalDateTime createdDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
-    private int calculateTimeRemainingInSeconds(Date date) {
-        int timeInMillisBetweenDates = this.calculateTimeBetweenDatesInSeconds(date);
-        return (int) this.TWENTY_FOUR_HOURS_IN_MILLIS/1000 - timeInMillisBetweenDates;
-    }
+        Duration duration = Duration.between(createdDateTime, currentDateTime);
+        long timeRemainingInSeconds = TWENTY_FOUR_HOURS_IN_SECONDS - duration.toSeconds();
 
-    public String createTimeRemaining(Date date) {
-        int timeRemaining = this.calculateTimeRemainingInSeconds(date);
-
-        if (this.isTimeExceeded(timeRemaining)) {
+        if (isTimeExceeded(timeRemainingInSeconds)) {
             return "Pick-up time exceeded";
-        } else {
-            int hours = timeRemaining / 3600;
-            int minutes = (timeRemaining % 3600) / 60;
-            StringBuilder createdTimeRemaining = new StringBuilder();
-            createdTimeRemaining.append(hours).append("H ").append(minutes).append("M");
-            return createdTimeRemaining.toString();
+
+            } else if (status.equals("Closed") || status.equals("Suspended")) {
+                return "-";
+            } else {
+            long hours = timeRemainingInSeconds / 3600;
+            long minutes = (timeRemainingInSeconds % 3600) / 60;
+            return hours + "H " + minutes + "M";
         }
     }
 
-    public boolean isTimeExceeded(long timeInMillis) {
-        return timeInMillis < 0;
+    public boolean isTimeExceeded(long timeInSeconds) {
+        return timeInSeconds < 0;
     }
 }
