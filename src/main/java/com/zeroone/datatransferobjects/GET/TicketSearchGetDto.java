@@ -1,16 +1,15 @@
-package com.zeroone.datatransferobjects;
+package com.zeroone.datatransferobjects.GET;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class TicketSearchGETDto {
+public class TicketSearchGetDto {
     private String ticketNumber;
     private String name;
 
-    public TicketSearchGETDto(String ticketNumber, String name) {
+    public TicketSearchGetDto(String ticketNumber, String name) {
         this.ticketNumber = ticketNumber;
         this.name = name;
     }

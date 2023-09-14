@@ -30,21 +30,30 @@ public class ChartService {
         int index = daysOfWeek.indexOf(day);
         List<String> firstSubList =  daysOfWeek.subList(index, daysOfWeek.size());
         List<String> secondSubList = daysOfWeek.subList(0, index);
-        List<String> sortedDays = new ArrayList<>(Stream.concat(firstSubList.stream(), secondSubList.stream()).toList());
+        Collections.reverse(firstSubList);
+        Collections.reverse(secondSubList);
+        List<String> sortedDays = new ArrayList<>(Stream.concat(secondSubList.stream(), firstSubList.stream()).toList());
         Collections.reverse(sortedDays);
-//        sortedDays.set(sortedDays.size() - 1, sortedDays.get(firstSubList.size()) + " (Today)");
+        sortedDays.set(0, sortedDays.get(0) + " (Today)");
         return sortedDays;
     }
 
-    public List<Long> getTicketsCountForEachDay() {
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-        ArrayList<Long> ticketsCountForEachDay = new ArrayList<>();
-        for (byte i = -1; i >=-7; i--) {
-            calendar.add(Calendar.DAY_OF_MONTH, i);
-            Date dayInDateFormat = calendar.getTime();
-            ticketsCountForEachDay.add(ticketRepository.countAllByCreatedDate(dayInDateFormat));
+    public List<Long> countTicketsByLast7Days() {
+        TimeZone timeZone = TimeZone.getTimeZone("Europe/Warsaw");
+        List<Long> ticketCounts = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance(timeZone);
+
+        for (int i = 0; i < 7; i++) {
+            Date endDate = calendar.getTime();
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+
+            Date startDate = calendar.getTime();
+
+            Long count = ticketRepository.countTicketsByDateRange(startDate, endDate);
+            ticketCounts.add(count);
         }
-        return ticketsCountForEachDay;
+
+        return ticketCounts;
     }
 }

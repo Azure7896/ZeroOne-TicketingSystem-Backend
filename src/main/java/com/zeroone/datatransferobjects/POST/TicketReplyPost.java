@@ -1,21 +1,17 @@
-package com.zeroone.datatransferobjects;
+package com.zeroone.datatransferobjects.POST;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class TicketPostDto {
+public class TicketReplyPost {
 
-    private String name;
-
-//    private User user;
-
-    private String ticketBody;
+    //    private User user;
+    private String replyBody;
 
 }
