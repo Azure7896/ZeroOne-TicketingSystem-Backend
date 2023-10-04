@@ -2,10 +2,7 @@ package com.zeroone.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
@@ -13,15 +10,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
-
-
-    public User(String email) {
-        this.email = email;
-    }
+    private String password;
+    private String firstName;
+    private String lastName;
+    private boolean isActive;
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class ChartController {
 
     private final ChartService chartService;
@@ -26,5 +25,10 @@ public class ChartController {
     @GetMapping("/latst7days")
     public ResponseEntity<?> getTicketsCountForEeachDay() {
         return new ResponseEntity<>(chartService.countTicketsByLast7Days(), HttpStatus.OK);
+    }
+
+    @GetMapping("/charts")
+    public ResponseEntity<?> getAllChartsData() {
+        return new ResponseEntity<>(chartService.getChartsData(), HttpStatus.OK);
     }
 }

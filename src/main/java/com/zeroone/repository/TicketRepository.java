@@ -13,6 +13,11 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
+    @Query("SELECT COALESCE(COUNT(t), 0) " +
+            "FROM Ticket t " +
+            "WHERE YEAR(t.createdDate) = :year AND MONTH(t.createdDate) = :month")
+    Integer getTicketCountByMonth(@Param("year") int year, @Param("month") int month);
+
     @Query("select distinct t from Ticket t join fetch t.user order by t.createdDate desc")
     List<Ticket> findAllTickets();
 

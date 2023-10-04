@@ -1,5 +1,6 @@
 package com.zeroone.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class TicketReply {
     private Long id;
 
     @Column(length = 4000)
-    private String ticketReply;
+    private String ticketReplyBody;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,6 +31,7 @@ public class TicketReply {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
+    @JsonBackReference
     private Ticket ticket;
 
 }

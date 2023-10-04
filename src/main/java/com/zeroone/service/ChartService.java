@@ -1,5 +1,6 @@
 package com.zeroone.service;
 
+import com.zeroone.datatransferobjects.GET.ChartsGetDto;
 import com.zeroone.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,18 +8,21 @@ import org.springframework.stereotype.Service;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.*;
 import java.util.stream.Stream;
 
 @Service
-@RequiredArgsConstructor
 public class ChartService {
 
 
-    @Autowired
-    private TicketRepository ticketRepository;
-
     private final List<String> daysOfWeek = Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun");
+
+    private final TicketRepository ticketRepository;
+
+    public ChartService(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
+    }
 
     private String getDayName() {
         Format format = new SimpleDateFormat("EEEE", Locale.ENGLISH);
@@ -28,7 +32,7 @@ public class ChartService {
     public List<String> sortDaysFromToday() {
         String day = getDayName().substring(0, 3);
         int index = daysOfWeek.indexOf(day);
-        List<String> firstSubList =  daysOfWeek.subList(index, daysOfWeek.size());
+        List<String> firstSubList = daysOfWeek.subList(index, daysOfWeek.size());
         List<String> secondSubList = daysOfWeek.subList(0, index);
         Collections.reverse(firstSubList);
         Collections.reverse(secondSubList);
@@ -55,5 +59,25 @@ public class ChartService {
         }
 
         return ticketCounts;
+    }
+
+    private List<Integer> getTicketsCountByMonth() {
+
+        int year = Year.now().getValue();
+
+        List<Integer> ticketCounts = new ArrayList<>();
+
+        for (int month = 1; month <= 12; month++) {
+            Integer count = ticketRepository.getTicketCountByMonth(year, month);
+            ticketCounts.add(count);
+        }
+
+        return ticketCounts;
+    }
+
+    public ChartsGetDto getChartsData() {
+        return ChartsGetDto.builder()
+                .ticketCountByMonth(getTicketsCountByMonth())
+                .build();
     }
 }

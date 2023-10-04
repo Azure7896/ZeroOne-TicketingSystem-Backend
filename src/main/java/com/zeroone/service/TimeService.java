@@ -19,12 +19,11 @@ public class TimeService {
         Duration duration = Duration.between(createdDateTime, currentDateTime);
         long timeRemainingInSeconds = TWENTY_FOUR_HOURS_IN_SECONDS - duration.toSeconds();
 
-        if (isTimeExceeded(timeRemainingInSeconds)) {
-            return "Pick-up time exceeded";
-
-            } else if (status.equals("Closed") || status.equals("Suspended")) {
-                return "-";
-            } else {
+        if (status.equals("Closed") || status.equals("Suspended")) {
+            return "-";
+        } else if (isTimeExceeded(timeRemainingInSeconds)) {
+            return "Resolve time exceeded";
+        } else {
             long hours = timeRemainingInSeconds / 3600;
             long minutes = (timeRemainingInSeconds % 3600) / 60;
             return hours + "H " + minutes + "M";

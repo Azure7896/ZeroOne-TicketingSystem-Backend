@@ -1,10 +1,12 @@
 package com.zeroone.datatransferobjects.GET;
 
 import com.zeroone.model.TicketBody;
+import com.zeroone.model.TicketReply;
 import com.zeroone.model.User;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -25,7 +27,9 @@ public class TicketAllDataGetDto {
 
     private User attendant;
 
-    private String timeToEnd;
+    private String ticketTimeRemaining;
 
     private TicketBody ticketBody;
+
+    private List<TicketReply> ticketReplies;
 }

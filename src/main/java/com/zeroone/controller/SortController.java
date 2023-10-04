@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/tickets")
-@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class SortController {
 

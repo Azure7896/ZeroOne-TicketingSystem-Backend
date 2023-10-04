@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface TicketReplyRepository extends JpaRepository<TicketReply, Long> {
 
-    List<TicketReply> findTicketRepliesByTicketOrderByReplyDate(Ticket ticket);
+//    List<TicketReply> findTicketRepliesByTicketOrderByReplyDate(Ticket ticket);
 }

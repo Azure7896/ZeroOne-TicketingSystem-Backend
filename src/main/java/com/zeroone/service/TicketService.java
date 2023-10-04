@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 
 @Service
 @RequiredArgsConstructor
@@ -55,17 +57,11 @@ public class TicketService {
     }
 
 
-    public List<TicketReplyDto> getAllTicketReplies(String ticketNumber) {
-        Ticket ticket = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
-        List<TicketReply> ticketReplies = ticketReplyRepository.findTicketRepliesByTicketOrderByReplyDate(ticket);
-        return mapTicketRepliesToTicketReplyDtoList(ticketReplies);
-    }
-
-    public List<TicketReplyDto> mapTicketRepliesToTicketReplyDtoList(List<TicketReply> ticketReplies) {
-        return ticketReplies.stream()
-                .map(reply -> new TicketReplyDto(reply.getTicketReply(), reply.getUser(), reply.getReplyDate()))
-                .toList();
-    }
+//    public List<TicketReplyDto> mapTicketRepliesToTicketReplyDtoList(List<TicketReply> ticketReplies) {
+//        return ticketReplies.stream()
+//                .map(reply -> new TicketReplyDto(reply.getTicketReply(), reply.getUser(), reply.getReplyDate()))
+//                .toList();
+//    }
 
     public List<Ticket> searchTicketsByContain(String name) {
         return ticketRepository.findByNameContainingIgnoreCaseOrderByTicketStatus(name);
@@ -75,19 +71,18 @@ public class TicketService {
         return this.mapTicketsToTicketDtoList(getAllTicketsFromDatabase());
     }
 
-    public TicketAllDataGetDto getOneTicketByTicketNumber(String ticketNumber) {
+    public TicketAllDataGetDto getByTicketNumber(String ticketNumber) {
         Ticket ticket = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
-        TicketAllDataGetDto ticketAllDataGetDto = TicketAllDataGetDto.builder()
+        return TicketAllDataGetDto.builder()
                 .name(ticket.getName())
                 .ticketNumber(ticket.getTicketNumber())
                 .ticketBody(ticket.getTicketBody())
                 .ticketStatus(ticket.getTicketStatus())
                 .user(ticket.getUser())
                 .createdDate(ticket.getCreatedDate())
-                .timeToEnd(timeService.createTimeRemaining(ticket.getCreatedDate(), ticket.getTicketStatus()))
+                .ticketTimeRemaining(timeService.createTimeRemaining(ticket.getCreatedDate(), ticket.getTicketStatus()))
+                .ticketReplies(ticket.getTicketReplies())
                 .build();
-
-        return ticketAllDataGetDto;
     }
 
     public void modifyTicketStatus(String ticketNumber, int status) {
@@ -120,9 +115,8 @@ public class TicketService {
         } else if (ticket.getTicketStatus().equals("Closed")) {
 
         } else {
-
             TicketReply ticketReply = TicketReply.builder()
-                    .ticketReply(ticketReplyPost.getReplyBody())
+                    .ticketReplyBody(ticketReplyPost.getReplyBody())
                     .replyDate(new Date())
                     .ticket(ticket)
                     .user(userRepository.findUserById(1L))
