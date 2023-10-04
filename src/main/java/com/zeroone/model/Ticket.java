@@ -1,6 +1,7 @@
 package com.zeroone.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -45,8 +46,8 @@ public class Ticket {
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private TicketBody ticketBody;
 
-    @OneToMany
-    @JoinColumn(name = "ticket_id")
-    private List<TicketReply> ticketReply;
+    @JsonManagedReference
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "ticket")
+    private List<TicketReply> ticketReplies;
 
 }

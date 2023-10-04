@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tickets")
-@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class TicketController {
 
@@ -27,7 +26,7 @@ public class TicketController {
 
     @GetMapping("/ticket")
     public ResponseEntity<?> getOneTicket(@RequestParam("ticketnumber") String ticketNumber) {
-        TicketAllDataGetDto ticketAllDataGetDto = ticketService.getOneTicketByTicketNumber(ticketNumber);
+        TicketAllDataGetDto ticketAllDataGetDto = ticketService.getByTicketNumber(ticketNumber);
         return new ResponseEntity<>(ticketAllDataGetDto, HttpStatus.OK);
     }
 
@@ -41,11 +40,6 @@ public class TicketController {
     public ResponseEntity<?> replyTicket(@RequestParam("ticketnumber") String ticketNumber, @RequestBody TicketReplyPost ticketReplyPost) {
         ticketService.replyTicket(ticketNumber, ticketReplyPost);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @GetMapping("/ticket/replies")
-    public ResponseEntity<?> getAllTicketReplies(@RequestParam("ticketnumber") String ticketNumber) {
-        return new ResponseEntity<>(ticketService.getAllTicketReplies(ticketNumber), HttpStatus.OK);
     }
 
     @GetMapping("/status")

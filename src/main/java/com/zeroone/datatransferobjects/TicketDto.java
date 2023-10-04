@@ -25,5 +25,5 @@ public class TicketDto {
 
     private User attendant;
 
-    private String timeToEnd;
+    private String ticketTimeRemaining;
 }
