@@ -1,11 +1,13 @@
 package com.zeroone.service;
 
 import com.zeroone.datatransferobjects.GET.TicketAllDataGetDto;
-import com.zeroone.datatransferobjects.GET.TicketReplyDto;
 import com.zeroone.datatransferobjects.POST.TicketPostDto;
 import com.zeroone.datatransferobjects.POST.TicketReplyPost;
-import com.zeroone.datatransferobjects.TicketDto;
+import com.zeroone.datatransferobjects.GET.TicketDto;
 import com.zeroone.enums.TicketStatus;
+import com.zeroone.exceptions.TicketNotFoundException;
+import com.zeroone.exceptions.TicketNotSavedException;
+import com.zeroone.exceptions.TicketStatusUpdateFailedException;
 import com.zeroone.model.Ticket;
 import com.zeroone.model.TicketBody;
 import com.zeroone.model.TicketReply;
@@ -18,8 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 
 @Service
@@ -57,12 +57,6 @@ public class TicketService {
     }
 
 
-//    public List<TicketReplyDto> mapTicketRepliesToTicketReplyDtoList(List<TicketReply> ticketReplies) {
-//        return ticketReplies.stream()
-//                .map(reply -> new TicketReplyDto(reply.getTicketReply(), reply.getUser(), reply.getReplyDate()))
-//                .toList();
-//    }
-
     public List<Ticket> searchTicketsByContain(String name) {
         return ticketRepository.findByNameContainingIgnoreCaseOrderByTicketStatus(name);
     }
@@ -71,8 +65,12 @@ public class TicketService {
         return this.mapTicketsToTicketDtoList(getAllTicketsFromDatabase());
     }
 
-    public TicketAllDataGetDto getByTicketNumber(String ticketNumber) {
+    public TicketAllDataGetDto getTicketByNumber(String ticketNumber) throws TicketNotFoundException {
         Ticket ticket = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
+        if (ticket == null) {
+            throw new TicketNotFoundException("Ticket not found: " + ticketNumber);
+        }
+
         return TicketAllDataGetDto.builder()
                 .name(ticket.getName())
                 .ticketNumber(ticket.getTicketNumber())
@@ -85,12 +83,14 @@ public class TicketService {
                 .build();
     }
 
-    public void modifyTicketStatus(String ticketNumber, int status) {
-
+    public void modifyTicketStatus(String ticketNumber, int status) throws TicketStatusUpdateFailedException {
         Ticket ticketToUpdate = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
 
-        switch (status) {
+        if (ticketToUpdate == null) {
+            throw new TicketStatusUpdateFailedException("Nie można znaleźć ticketu o numerze: " + ticketNumber);
+        }
 
+        switch (status) {
             case 1:
                 ticketToUpdate.setTicketStatus(TicketStatus.IN_PROGRESS.toString());
                 break;
@@ -100,9 +100,17 @@ public class TicketService {
             case 3:
                 ticketToUpdate.setTicketStatus(TicketStatus.SUSPENDED.toString());
                 break;
+            default:
+                throw new TicketStatusUpdateFailedException("Wrong status: " + status);
         }
-        ticketRepository.save(ticketToUpdate);
+
+        try {
+            ticketRepository.save(ticketToUpdate);
+        } catch (Exception e) {
+            throw new TicketStatusUpdateFailedException("Error when ticket updating: " + e.getMessage());
+        }
     }
+
 
     public void replyTicket(String ticketNumber, TicketReplyPost ticketReplyPost) {
         Ticket ticket = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
@@ -127,7 +135,7 @@ public class TicketService {
     }
 
 
-    public Ticket saveNewTicket(TicketPostDto newTicketDto) {
+    public Ticket saveNewTicket(TicketPostDto newTicketDto) throws TicketNotSavedException {
         Ticket newTicket = Ticket.builder()
                 .name(newTicketDto.getName())
                 .ticketNumber(nameCreatorService.createTicketNumber())
@@ -137,7 +145,11 @@ public class TicketService {
                 .createdDate(new Date())
                 .build();
 
-        return ticketRepository.save(newTicket);
+        try {
+            return ticketRepository.save(newTicket);
+        } catch (Exception e) {
+            throw new TicketNotSavedException("Error when ticket saving: " + e.getMessage());
+        }
     }
 
 }

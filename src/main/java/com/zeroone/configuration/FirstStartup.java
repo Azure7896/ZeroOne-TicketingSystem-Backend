@@ -1,28 +1,29 @@
 package com.zeroone.configuration;
 
+import com.zeroone.model.Role;
 import com.zeroone.model.Ticket;
 import com.zeroone.model.TicketBody;
 import com.zeroone.model.User;
+import com.zeroone.repository.RoleRepository;
 import com.zeroone.repository.TicketRepository;
 import com.zeroone.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
-public class HelloMessage {
+@RequiredArgsConstructor
+public class FirstStartup {
 
 
     private final UserRepository userRepository;
 
     private final TicketRepository ticketRepository;
 
-    public HelloMessage(UserRepository userRepository, TicketRepository ticketRepository) {
-        this.userRepository = userRepository;
-        this.ticketRepository = ticketRepository;
-    }
+    private final RoleRepository roleRepository;
 
     private User createZerOneDefaultUser() {
         UUID uuid = UUID.randomUUID();
@@ -31,21 +32,21 @@ public class HelloMessage {
                 .lastName("ZeroOne")
                 .isActive(false)
                 .email("ZeroOne")
+                .role(roleRepository.findRoleByName("USER"))
+                .createdDate(new Date())
                 .password(uuid.toString())
                 .build();
         return userRepository.save(user);
     }
 
-    public void createHelloTicket() {
-        if (!ticketRepository.existsById(1L)) {
-            User zeroOne = createZerOneDefaultUser();
+    private void createHelloTicket(User zeroOne) {
             Ticket ticket = Ticket.builder()
                     .attendant(zeroOne)
                     .user(zeroOne)
                     .createdDate(new Date())
                     .ticketNumber("ZO-1")
                     .ticketStatus("Closed")
-                    .name("Welcome in the ZerOne Ticketing System!")
+                    .name("Welcome to the ZerOne Ticketing System!")
                     .ticketBody(new TicketBody("<b>Welcome to ZeroOne Ticketing System!</b><br><br>" +
                             "Our ticketing system is both efficient and highly functional, designed to streamline your ticket management processes. With our dynamic table feature, you can easily view and organize tickets, making it a breeze to handle customer inquiries, issues, and requests. You have full control to change ticket statuses, ensuring that your team stays on top of every task.<br>" +
                             "<br>Managing users is a breeze with our dedicated user management panel, allowing you to efficiently control access and permissions. You can also generate detailed reports and display insightful charts and graphs to help you gain valuable insights into your support operations<br>" +
@@ -54,6 +55,19 @@ public class HelloMessage {
                             "<br>Best regards! <b>ZeroOne</b>"))
                     .build();
             ticketRepository.save(ticket);
+    }
+
+     private void createDefaultRoles() {
+        List<Role> roles = List.of(new Role("USER"), new Role( "ADMIN"));
+        roleRepository.saveAll(roles);
+    }
+
+    public void createStartupConfig() {
+        if (!ticketRepository.existsById(1L)) {
+            User zeroOne = createZerOneDefaultUser();
+            createHelloTicket(zeroOne);
+            createDefaultRoles();
         }
     }
+
 }

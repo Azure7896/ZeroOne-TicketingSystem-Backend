@@ -1,6 +1,6 @@
 package com.zeroone;
 
-import com.zeroone.configuration.HelloMessage;
+import com.zeroone.configuration.FirstStartup;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,10 +11,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 public class ZeroOneApplication {
 
-    private final HelloMessage helloMessage;
+    private final FirstStartup firstStartup;
 
-    public ZeroOneApplication(HelloMessage helloMessage) {
-        this.helloMessage = helloMessage;
+    public ZeroOneApplication(FirstStartup firstStartup) {
+        this.firstStartup = firstStartup;
     }
 
     public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class ZeroOneApplication {
 
     @PostConstruct
     public void methodToRunOnStartup() {
-        helloMessage.createHelloTicket();
+        firstStartup.createStartupConfig();
     }
 
 }

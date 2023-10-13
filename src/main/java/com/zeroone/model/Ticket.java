@@ -50,4 +50,7 @@ public class Ticket {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "ticket")
     private List<TicketReply> ticketReplies;
 
+    @ManyToOne
+    @JoinColumn
+    private Category category;
 }

@@ -1,6 +1,6 @@
 package com.zeroone.service;
 
-import com.zeroone.datatransferobjects.TicketDto;
+import com.zeroone.datatransferobjects.GET.TicketDto;
 import com.zeroone.model.Ticket;
 import com.zeroone.repository.TicketRepository;
 import jakarta.persistence.EntityNotFoundException;

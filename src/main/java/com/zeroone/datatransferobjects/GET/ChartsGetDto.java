@@ -11,6 +11,8 @@ import java.util.List;
 @Builder
 public class ChartsGetDto {
 
-    private List<Integer> ticketCountByMonth;
+    private List<Integer> ticketsCountByMonth;
+
+    private List<Integer> ticketsCountByStatus;
 
 }
