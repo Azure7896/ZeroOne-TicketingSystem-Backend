@@ -4,6 +4,8 @@ package com.zeroone.controller;
 import com.zeroone.datatransferobjects.GET.TicketAllDataGetDto;
 import com.zeroone.datatransferobjects.POST.TicketPostDto;
 import com.zeroone.datatransferobjects.POST.TicketReplyPost;
+import com.zeroone.exceptions.TicketNotFoundException;
+import com.zeroone.exceptions.TicketNotSavedException;
 import com.zeroone.model.Ticket;
 import com.zeroone.service.TicketService;
 import lombok.RequiredArgsConstructor;
@@ -26,14 +28,23 @@ public class TicketController {
 
     @GetMapping("/ticket")
     public ResponseEntity<?> getOneTicket(@RequestParam("ticketnumber") String ticketNumber) {
-        TicketAllDataGetDto ticketAllDataGetDto = ticketService.getByTicketNumber(ticketNumber);
-        return new ResponseEntity<>(ticketAllDataGetDto, HttpStatus.OK);
+        try {
+            TicketAllDataGetDto ticketData = ticketService.getTicketByNumber(ticketNumber);
+            return new ResponseEntity<>(ticketData, HttpStatus.OK);
+        } catch (TicketNotFoundException ticketNotFoundException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ticket of number" + ticketNumber + " not found.");
+        }
     }
 
-    @PostMapping
+    @PostMapping("/saveTicket")
     public ResponseEntity<?> saveTicket(@RequestBody TicketPostDto newTicketDto) {
-        Ticket ticket = ticketService.saveNewTicket(newTicketDto);
-        return new ResponseEntity<>(ticket, HttpStatus.CREATED);
+        try {
+            Ticket ticket = ticketService.saveNewTicket(newTicketDto);
+            return new ResponseEntity<>(ticket, HttpStatus.CREATED);
+        } catch (TicketNotSavedException ticketNotSavedException) {
+            return new ResponseEntity<>("Ticket has not been saved. Try again.",
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/ticket/reply")

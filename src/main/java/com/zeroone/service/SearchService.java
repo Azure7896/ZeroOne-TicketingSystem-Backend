@@ -1,7 +1,6 @@
 package com.zeroone.service;
 
 
-import com.zeroone.datatransferobjects.TicketDto;
 import com.zeroone.datatransferobjects.GET.TicketSearchGetDto;
 import com.zeroone.model.Ticket;
 import lombok.RequiredArgsConstructor;

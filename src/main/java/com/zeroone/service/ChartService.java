@@ -77,7 +77,8 @@ public class ChartService {
 
     public ChartsGetDto getChartsData() {
         return ChartsGetDto.builder()
-                .ticketCountByMonth(getTicketsCountByMonth())
+                .ticketsCountByMonth(getTicketsCountByMonth())
+                .ticketsCountByStatus(ticketRepository.countTicketsByStatus())
                 .build();
     }
 }

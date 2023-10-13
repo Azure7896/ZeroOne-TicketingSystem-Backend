@@ -18,6 +18,19 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             "WHERE YEAR(t.createdDate) = :year AND MONTH(t.createdDate) = :month")
     Integer getTicketCountByMonth(@Param("year") int year, @Param("month") int month);
 
+
+    @Query("SELECT COUNT(t) FROM Ticket t WHERE t.ticketStatus = 'New' " +
+            "UNION ALL " +
+            "SELECT COUNT(t) FROM Ticket t WHERE t.ticketStatus = 'In progress' " +
+            "UNION ALL " +
+            "SELECT COUNT(t) FROM Ticket t WHERE t.ticketStatus = 'Closed' " +
+            "UNION ALL " +
+            "SELECT COUNT(t) FROM Ticket t WHERE t.ticketStatus = 'Suspended'")
+    List<Integer> countTicketsByStatus();
+
+    @Query("SELECT COUNT(t) FROM Ticket t WHERE t.createdDate BETWEEN :startDate AND :endDate")
+    Long countTicketsByDateRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
     @Query("select distinct t from Ticket t join fetch t.user order by t.createdDate desc")
     List<Ticket> findAllTickets();
 
@@ -31,8 +44,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByNameContainingIgnoreCaseOrderByTicketStatus(String title);
 
     List<Ticket> findByTicketStatus(String status);
-
-    @Query("SELECT COUNT(t) FROM Ticket t WHERE t.createdDate BETWEEN :startDate AND :endDate")
-    Long countTicketsByDateRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 }
