@@ -53,4 +53,5 @@ public class Ticket {
     @ManyToOne
     @JoinColumn
     private Category category;
+
 }

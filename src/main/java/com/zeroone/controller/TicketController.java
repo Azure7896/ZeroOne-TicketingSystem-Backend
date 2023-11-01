@@ -27,7 +27,7 @@ public class TicketController {
     }
 
     @GetMapping("/ticket")
-    public ResponseEntity<?> getOneTicket(@RequestParam("ticketnumber") String ticketNumber) {
+    public ResponseEntity<?> getTicket(@RequestParam("ticketnumber") String ticketNumber) {
         try {
             TicketAllDataGetDto ticketData = ticketService.getTicketByNumber(ticketNumber);
             return new ResponseEntity<>(ticketData, HttpStatus.OK);
@@ -39,7 +39,7 @@ public class TicketController {
     @PostMapping("/saveTicket")
     public ResponseEntity<?> saveTicket(@RequestBody TicketPostDto newTicketDto) {
         try {
-            Ticket ticket = ticketService.saveNewTicket(newTicketDto);
+            Ticket ticket = ticketService.createTicket(newTicketDto);
             return new ResponseEntity<>(ticket, HttpStatus.CREATED);
         } catch (TicketNotSavedException ticketNotSavedException) {
             return new ResponseEntity<>("Ticket has not been saved. Try again.",

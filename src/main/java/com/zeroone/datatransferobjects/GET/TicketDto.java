@@ -1,6 +1,7 @@
 package com.zeroone.datatransferobjects.GET;
 
 
+import com.zeroone.model.Category;
 import com.zeroone.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,4 +27,6 @@ public class TicketDto {
     private User attendant;
 
     private String ticketTimeRemaining;
+
+    private Category category;
 }
