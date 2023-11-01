@@ -5,7 +5,6 @@ import com.zeroone.exceptions.EmailAlreadyExistsException;
 import com.zeroone.exceptions.FieldTooShortException;
 import com.zeroone.exceptions.PasswordTooShortException;
 import com.zeroone.model.ConfirmationToken;
-import com.zeroone.model.Role;
 import com.zeroone.model.User;
 import com.zeroone.repository.ConfirmationTokenRepository;
 import com.zeroone.repository.RoleRepository;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -32,7 +30,7 @@ public class UserService {
     }
 
     public void registerUser(UserDto userDTO) throws FieldTooShortException, PasswordTooShortException, EmailAlreadyExistsException {
-        // Sprawdzenie, czy użytkownik o podanym email już istnieje
+
         if (userRepository.existsByEmail(userDTO.getEmail())) {
             throw new EmailAlreadyExistsException("User already exists");
         }

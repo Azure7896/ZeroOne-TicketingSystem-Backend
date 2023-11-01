@@ -18,4 +18,6 @@ public class TicketPostDto {
 
     private String ticketBody;
 
+    private String category;
+
 }

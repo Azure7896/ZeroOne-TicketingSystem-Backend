@@ -1,9 +1,9 @@
 package com.zeroone.service;
 
 import com.zeroone.datatransferobjects.GET.TicketAllDataGetDto;
+import com.zeroone.datatransferobjects.GET.TicketDto;
 import com.zeroone.datatransferobjects.POST.TicketPostDto;
 import com.zeroone.datatransferobjects.POST.TicketReplyPost;
-import com.zeroone.datatransferobjects.GET.TicketDto;
 import com.zeroone.enums.TicketStatus;
 import com.zeroone.exceptions.TicketNotFoundException;
 import com.zeroone.exceptions.TicketNotSavedException;
@@ -11,6 +11,7 @@ import com.zeroone.exceptions.TicketStatusUpdateFailedException;
 import com.zeroone.model.Ticket;
 import com.zeroone.model.TicketBody;
 import com.zeroone.model.TicketReply;
+import com.zeroone.repository.CategoryRepository;
 import com.zeroone.repository.TicketReplyRepository;
 import com.zeroone.repository.TicketRepository;
 import com.zeroone.repository.UserRepository;
@@ -36,6 +37,8 @@ public class TicketService {
 
     private final TicketReplyRepository ticketReplyRepository;
 
+    private final CategoryRepository categoryRepository;
+
 
     private List<Ticket> getAllTicketsFromDatabase() {
         List<Ticket> allTicketsList = ticketRepository.findAllTickets();
@@ -47,7 +50,7 @@ public class TicketService {
         return ticketList.stream()
                 .map(ticket -> new TicketDto(ticket.getTicketNumber(), ticket.getName(),
                         ticket.getTicketStatus(), ticket.getUser(), ticket.getCreatedDate(), ticket.getAttendant(),
-                        timeService.createTimeRemaining(ticket.getCreatedDate(), ticket.getTicketStatus())))
+                        timeService.createTimeRemaining(ticket.getCreatedDate(), ticket.getTicketStatus()), ticket.getCategory()))
                 .toList();
     }
 
@@ -77,9 +80,11 @@ public class TicketService {
                 .ticketBody(ticket.getTicketBody())
                 .ticketStatus(ticket.getTicketStatus())
                 .user(ticket.getUser())
+                .attendant(ticket.getAttendant())
                 .createdDate(ticket.getCreatedDate())
                 .ticketTimeRemaining(timeService.createTimeRemaining(ticket.getCreatedDate(), ticket.getTicketStatus()))
                 .ticketReplies(ticket.getTicketReplies())
+                .category(ticket.getCategory())
                 .build();
     }
 
@@ -87,7 +92,7 @@ public class TicketService {
         Ticket ticketToUpdate = ticketRepository.findByTicketNumberContainingIgnoreCase(ticketNumber);
 
         if (ticketToUpdate == null) {
-            throw new TicketStatusUpdateFailedException("Nie można znaleźć ticketu o numerze: " + ticketNumber);
+            throw new TicketStatusUpdateFailedException("Ticket not found: " + ticketNumber);
         }
 
         switch (status) {
@@ -117,25 +122,23 @@ public class TicketService {
 
         //When ticket has status "New", change status to "In progress"
 
-        if(ticket.getTicketStatus().equals("New")) {
+        if (ticket.getTicketStatus().equals("New")) {
             ticket.setTicketStatus(TicketStatus.IN_PROGRESS.toString());
             ticketRepository.save(ticket);
-        } else if (ticket.getTicketStatus().equals("Closed")) {
-
-        } else {
-            TicketReply ticketReply = TicketReply.builder()
-                    .ticketReplyBody(ticketReplyPost.getReplyBody())
-                    .replyDate(new Date())
-                    .ticket(ticket)
-                    .user(userRepository.findUserById(1L))
-                    .build();
-
-            ticketReplyRepository.save(ticketReply);
         }
+
+        TicketReply ticketReply = TicketReply.builder()
+                .ticketReplyBody(ticketReplyPost.getReplyBody())
+                .replyDate(new Date())
+                .ticket(ticket)
+                .user(userRepository.findUserById(1L))
+                .build();
+
+        ticketReplyRepository.save(ticketReply);
     }
 
 
-    public Ticket saveNewTicket(TicketPostDto newTicketDto) throws TicketNotSavedException {
+    public Ticket createTicket(TicketPostDto newTicketDto) throws TicketNotSavedException {
         Ticket newTicket = Ticket.builder()
                 .name(newTicketDto.getName())
                 .ticketNumber(nameCreatorService.createTicketNumber())
@@ -143,6 +146,7 @@ public class TicketService {
                 .ticketStatus(TicketStatus.NEW.toString())
                 .user(userRepository.findUserById(1L))
                 .createdDate(new Date())
+                .category(categoryRepository.findCategoriesByCategoryName(newTicketDto.getCategory()))
                 .build();
 
         try {

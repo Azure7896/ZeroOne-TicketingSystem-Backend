@@ -1,5 +1,6 @@
 package com.zeroone.datatransferobjects.GET;
 
+import com.zeroone.model.Category;
 import com.zeroone.model.TicketBody;
 import com.zeroone.model.TicketReply;
 import com.zeroone.model.User;
@@ -32,4 +33,6 @@ public class TicketAllDataGetDto {
     private TicketBody ticketBody;
 
     private List<TicketReply> ticketReplies;
+
+    private Category category;
 }

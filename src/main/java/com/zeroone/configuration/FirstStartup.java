@@ -1,9 +1,7 @@
 package com.zeroone.configuration;
 
-import com.zeroone.model.Role;
-import com.zeroone.model.Ticket;
-import com.zeroone.model.TicketBody;
-import com.zeroone.model.User;
+import com.zeroone.model.*;
+import com.zeroone.repository.CategoryRepository;
 import com.zeroone.repository.RoleRepository;
 import com.zeroone.repository.TicketRepository;
 import com.zeroone.repository.UserRepository;
@@ -24,6 +22,8 @@ public class FirstStartup {
     private final TicketRepository ticketRepository;
 
     private final RoleRepository roleRepository;
+
+    private final CategoryRepository categoryRepository;
 
     private User createZerOneDefaultUser() {
         UUID uuid = UUID.randomUUID();
@@ -53,8 +53,19 @@ public class FirstStartup {
                             "<br>But that is not all! We have ve also incorporated a user-friendly client panel, empowering your customers to submit their requests and view the status of their inquiries. This customer-oriented feature enhances communication and transparency between your team and your clients, ultimately improving overall satisfaction<br>" +
                             "<br>At ZeroOne Ticketing System, we are committed to providing you with a comprehensive and user-friendly ticketing solution that streamlines your support processes and ensures efficient ticket management. <br>"+
                             "<br>Best regards! <b>ZeroOne</b>"))
+                    .category(categoryRepository.findCategoriesById(5L))
                     .build();
             ticketRepository.save(ticket);
+    }
+
+    private void createCategories() {
+
+            categoryRepository.saveAll(List.of(
+                    new Category("Application"),
+                    new Category("Hardware"),
+                    new Category("System"),
+                    new Category("Network"),
+                    new Category("Other")));
     }
 
      private void createDefaultRoles() {
@@ -64,9 +75,10 @@ public class FirstStartup {
 
     public void createStartupConfig() {
         if (!ticketRepository.existsById(1L)) {
+            createCategories();
+            createDefaultRoles();
             User zeroOne = createZerOneDefaultUser();
             createHelloTicket(zeroOne);
-            createDefaultRoles();
         }
     }
 
