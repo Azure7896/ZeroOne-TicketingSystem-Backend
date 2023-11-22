@@ -2,6 +2,7 @@ package com.zeroone.controller;
 
 
 import com.zeroone.datatransferobjects.GET.TicketAllDataGetDto;
+import com.zeroone.datatransferobjects.GET.TicketDto;
 import com.zeroone.datatransferobjects.POST.TicketPostDto;
 import com.zeroone.datatransferobjects.POST.TicketReplyPost;
 import com.zeroone.exceptions.TicketNotFoundException;
@@ -13,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/tickets")
@@ -23,7 +26,12 @@ public class TicketController {
 
     @GetMapping
     public ResponseEntity<?> getAllTickets() {
-        return new ResponseEntity<>(ticketService.getAllTicketsFromDatabaseByTicketDtoList(), HttpStatus.OK);
+        try {
+            List<TicketDto> allTicketsList = ticketService.getAllTicketsFromDatabaseByTicketDtoList();
+            return new ResponseEntity<>(allTicketsList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error retrieving tickets: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/ticket")

@@ -27,4 +27,7 @@ public class FailureInfo {
 
     @Column(nullable = false, length = 200)
     private String additionalInfo;
+
+    @Column(nullable = false)
+    private boolean isActive;
 }
