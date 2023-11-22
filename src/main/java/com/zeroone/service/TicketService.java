@@ -42,7 +42,6 @@ public class TicketService {
 
     private List<Ticket> getAllTicketsFromDatabase() {
         List<Ticket> allTicketsList = ticketRepository.findAllTickets();
-        if (allTicketsList.isEmpty()) throw new EntityNotFoundException("ENTITY_NOT_FOUND");
         return allTicketsList;
     }
 
