@@ -11,7 +11,8 @@ import lombok.Setter;
 @Setter
 public class TicketReplyPost {
 
-    //    private User user;
+    private String userEmail;
+    
     private String replyBody;
 
 }

@@ -9,6 +9,7 @@ import com.zeroone.exceptions.TicketNotFoundException;
 import com.zeroone.exceptions.TicketNotSavedException;
 import com.zeroone.model.Ticket;
 import com.zeroone.service.TicketService;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

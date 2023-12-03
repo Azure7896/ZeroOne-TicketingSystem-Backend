@@ -7,10 +7,7 @@ import com.zeroone.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -23,13 +20,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody @Valid UserDto userDTO) {
+    public ResponseEntity<String> registerUser(@RequestBody UserDto userDTO) {
+        System.out.println(userDTO.getPassword());
+        System.out.println(userDTO.getEmail());
+        System.out.println(userDTO.getFirstName());
+        System.out.println(userDTO.getLastName());
         try {
             userService.registerUser(userDTO);
-            return ResponseEntity.ok("User registered successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (EmailAlreadyExistsException | ValidationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getChartsData(@RequestParam("email") String email) {
+        return new ResponseEntity<>(userService.getUserData(email), HttpStatus.OK);
     }
 
 }
