@@ -14,7 +14,7 @@ public class TicketPostDto {
 
     private String name;
 
-//    private User user;
+    private String userEmail;
 
     private String ticketBody;
 

@@ -1,6 +1,7 @@
 package com.zeroone.repository;
 
 import com.zeroone.model.Ticket;
+import com.zeroone.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,6 +37,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Query("select distinct t from Ticket t join fetch t.user order by t.createdDate")
     List<Ticket> findAllTicketsByOldest();
+
+    List<Ticket> findTicketsByAttendant(User user);
+
 
     Ticket findByTicketNumberContainingIgnoreCase(String ticketNumber);
 

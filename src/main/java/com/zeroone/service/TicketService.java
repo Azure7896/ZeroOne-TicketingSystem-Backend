@@ -11,6 +11,7 @@ import com.zeroone.exceptions.TicketStatusUpdateFailedException;
 import com.zeroone.model.Ticket;
 import com.zeroone.model.TicketBody;
 import com.zeroone.model.TicketReply;
+import com.zeroone.model.User;
 import com.zeroone.repository.CategoryRepository;
 import com.zeroone.repository.TicketReplyRepository;
 import com.zeroone.repository.TicketRepository;
@@ -57,6 +58,10 @@ public class TicketService {
         List<Ticket> ticketListByStatus = ticketRepository.findByTicketStatus(status);
         return mapTicketsToTicketDtoList(ticketListByStatus);
     }
+
+//    public List<TicketDto> getAllTicketsByAttendant(String email) {
+//        List<Ticket> ticketListByAttendant = ticketRepository.findTicketsByAttendant(email);
+//    }
 
 
     public List<Ticket> searchTicketsByContain(String name) {
@@ -121,8 +126,11 @@ public class TicketService {
 
         //When ticket has status "New", change status to "In progress"
 
+        User userWhoReplied = userRepository.findUserByEmail(ticketReplyPost.getUserEmail());
+
         if (ticket.getTicketStatus().equals("New")) {
             ticket.setTicketStatus(TicketStatus.IN_PROGRESS.toString());
+            ticket.setAttendant(userWhoReplied);
             ticketRepository.save(ticket);
         }
 
@@ -130,7 +138,7 @@ public class TicketService {
                 .ticketReplyBody(ticketReplyPost.getReplyBody())
                 .replyDate(new Date())
                 .ticket(ticket)
-                .user(userRepository.findUserById(1L))
+                .user(userWhoReplied)
                 .build();
 
         ticketReplyRepository.save(ticketReply);
@@ -143,7 +151,7 @@ public class TicketService {
                 .ticketNumber(nameCreatorService.createTicketNumber())
                 .ticketBody(new TicketBody(newTicketDto.getTicketBody()))
                 .ticketStatus(TicketStatus.NEW.toString())
-                .user(userRepository.findUserById(1L))
+                .user(userRepository.findUserByEmail(newTicketDto.getUserEmail()))
                 .createdDate(new Date())
                 .category(categoryRepository.findCategoriesByCategoryName(newTicketDto.getCategory()))
                 .build();

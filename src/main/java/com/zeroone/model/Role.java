@@ -9,7 +9,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "users_roles")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Role {

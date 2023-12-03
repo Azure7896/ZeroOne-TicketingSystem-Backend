@@ -22,7 +22,7 @@ public class User {
     private Long id;
     @Column(nullable = false, length = 64, unique = true)
     private String email;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 320)
     @Size(min = 7, message = "Min. 7 characters required")
     private String password;
     @Column(nullable = false, length = 50)
