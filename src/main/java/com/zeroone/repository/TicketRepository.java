@@ -38,8 +38,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query("select distinct t from Ticket t join fetch t.user order by t.createdDate")
     List<Ticket> findAllTicketsByOldest();
 
-    List<Ticket> findTicketsByAttendant(User user);
-
+    List<Ticket> findByAttendant(User user);
 
     Ticket findByTicketNumberContainingIgnoreCase(String ticketNumber);
 

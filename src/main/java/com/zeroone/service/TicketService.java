@@ -59,9 +59,11 @@ public class TicketService {
         return mapTicketsToTicketDtoList(ticketListByStatus);
     }
 
-//    public List<TicketDto> getAllTicketsByAttendant(String email) {
-//        List<Ticket> ticketListByAttendant = ticketRepository.findTicketsByAttendant(email);
-//    }
+    public List<TicketDto> getAllTicketsByAttendantEmail(String email) {
+        User user = userRepository.findUserByEmail(email);
+        List<Ticket> ticketListByAttendant = ticketRepository.findByAttendant(user);
+        return mapTicketsToTicketDtoList(ticketListByAttendant);
+    }
 
 
     public List<Ticket> searchTicketsByContain(String name) {
@@ -128,7 +130,7 @@ public class TicketService {
 
         User userWhoReplied = userRepository.findUserByEmail(ticketReplyPost.getUserEmail());
 
-        if (ticket.getTicketStatus().equals("New")) {
+        if (ticket.getTicketStatus().equals("New") && userWhoReplied.getRole().getName().equals("ADMIN")) {
             ticket.setTicketStatus(TicketStatus.IN_PROGRESS.toString());
             ticket.setAttendant(userWhoReplied);
             ticketRepository.save(ticket);

@@ -67,7 +67,10 @@ public class TicketController {
         return new ResponseEntity<>(ticketService.getAllTicketsByStatus(status), HttpStatus.OK);
     }
 
-
+    @GetMapping("user")
+    public ResponseEntity<?> getTicketListByEmail(@RequestParam("email") String email) {
+        return new ResponseEntity<>(ticketService.getAllTicketsByAttendantEmail(email), HttpStatus.OK);
+    }
     @PutMapping("/ticket")
     public ResponseEntity<?> modifyTicket (@RequestParam("ticketnumber") String ticketNumber, @RequestParam("status") int status) {
         ticketService.modifyTicketStatus(ticketNumber, status);
