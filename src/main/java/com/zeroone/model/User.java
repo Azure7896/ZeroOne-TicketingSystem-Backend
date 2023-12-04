@@ -32,7 +32,7 @@ public class User {
     @Size(min = 2, message = "Min. 2 characters required")
     private String lastName;
     @Column(nullable = false)
-    private boolean isActive;
+    private boolean isDisabled;
 
 //    @Column(nullable = false, updatable = false)
     @Column(updatable = false)

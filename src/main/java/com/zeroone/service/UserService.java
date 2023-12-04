@@ -49,7 +49,7 @@ public class UserService {
                 .email(userDTO.getEmail())
                 .password(passwordEncoder.encode(userDTO.getPassword()))
                 .createdDate(new Date())
-                .isActive(false)
+                .isDisabled(true)
                 .role(roleRepository.findRoleByName("USER"))
                 .build();
 

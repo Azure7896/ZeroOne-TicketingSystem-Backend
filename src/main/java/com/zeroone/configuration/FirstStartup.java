@@ -30,7 +30,7 @@ public class FirstStartup {
         User user = User.builder()
                 .firstName("ZeroOne")
                 .lastName("ZeroOne")
-                .isActive(false)
+                .isDisabled(true)
                 .email("ZeroOne")
                 .role(roleRepository.findRoleByName("USER"))
                 .createdDate(new Date())
