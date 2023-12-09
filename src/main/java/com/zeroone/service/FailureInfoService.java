@@ -2,14 +2,9 @@ package com.zeroone.service;
 
 
 import com.zeroone.datatransferobjects.GET.FailureInfoDto;
-import com.zeroone.datatransferobjects.POST.TicketPostDto;
-import com.zeroone.enums.TicketStatus;
 import com.zeroone.exceptions.FailureInfoException;
 import com.zeroone.exceptions.FailureInfoNotSavedException;
-import com.zeroone.exceptions.TicketNotSavedException;
 import com.zeroone.model.FailureInfo;
-import com.zeroone.model.Ticket;
-import com.zeroone.model.TicketBody;
 import com.zeroone.repository.FailureInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

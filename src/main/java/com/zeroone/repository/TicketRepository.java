@@ -40,12 +40,14 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findByAttendant(User user);
 
+    List<Ticket> findByUser(User user);
+
     Ticket findByTicketNumberContainingIgnoreCase(String ticketNumber);
 
     Ticket findFirstByOrderByIdDesc();
 
     List<Ticket> findByNameContainingIgnoreCaseOrderByTicketStatus(String title);
 
-    List<Ticket> findByTicketStatus(String status);
+    List<Ticket> findByTicketStatusAndUser(String status, User user);
 
 }

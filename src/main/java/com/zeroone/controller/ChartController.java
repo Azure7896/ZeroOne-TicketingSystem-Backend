@@ -18,12 +18,12 @@ public class ChartController {
     }
 
     @GetMapping("/chart")
-    public ResponseEntity<?> getChartsData() {
+    public ResponseEntity<?> getChartsDataFor7DaysChart() {
         return new ResponseEntity<>(chartService.sortDaysFromToday(), HttpStatus.OK);
     }
 
     @GetMapping("/latst7days")
-    public ResponseEntity<?> getTicketsCountForEeachDay() {
+    public ResponseEntity<?> getTicketsCountForEachDay() {
         return new ResponseEntity<>(chartService.countTicketsByLast7Days(), HttpStatus.OK);
     }
 

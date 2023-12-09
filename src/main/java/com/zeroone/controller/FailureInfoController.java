@@ -24,7 +24,7 @@ public class FailureInfoController {
     private final FailureInfoService failureInfoService;
 
     @PostMapping("/saveFailure")
-    public ResponseEntity<?> saveFailureInfo(@RequestBody FailureInfoDto failureInfoDto) {
+    public ResponseEntity<?> saveFailure(@RequestBody FailureInfoDto failureInfoDto) {
         try {
             FailureInfo failureInfo = failureInfoService.saveFailureInfo(failureInfoDto);
             return new ResponseEntity<>(failureInfo, HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class FailureInfoController {
     }
 
     @PutMapping("/setactive")
-    public ResponseEntity<?> modifyTicket (@RequestParam("failureid") Long failureId) {
+    public ResponseEntity<?> updateFailureStatus (@RequestParam("failureid") Long failureId) {
         failureInfoService.setFailureStatus(failureId);
         return new ResponseEntity<>("test", HttpStatus.OK);
     }
