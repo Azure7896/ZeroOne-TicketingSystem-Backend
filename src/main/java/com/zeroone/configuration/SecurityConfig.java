@@ -69,37 +69,6 @@ public class SecurityConfig {
 
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
-//        http
-//                .securityMatcher("/api/auth/", "/databasestatus", "/users/register")
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().permitAll()
-//                )
-//                .securityMatcher("/users/user", "/failures/active", "/tickets/status")
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().hasRole("USER")
-//                )
-//
-//                .securityMatcher("/**")
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().hasRole("ADMIN")
-//                )
-//                .cors().configurationSource(corsConfigurationSource()).and()
-//                .csrf().disable()
-//                .httpBasic(Customizer.withDefaults())
-//                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-//                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .exceptionHandling((exceptions) -> exceptions
-//                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-//                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
-//                );
-//
-//        return http.build();
-//
-//    }
-
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -136,7 +105,7 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        // Remove the SCOPE_ prefix
+
         grantedAuthoritiesConverter.setAuthorityPrefix("");
 
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();

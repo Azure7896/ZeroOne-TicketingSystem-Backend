@@ -1,13 +1,13 @@
 package com.zeroone.controller;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.time.Instant;
 import java.util.stream.Collectors;
@@ -17,9 +17,11 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     private final JwtEncoder encoder;
+
     public AuthController(JwtEncoder encoder) {
         this.encoder = encoder;
     }
+
     @PostMapping("")
     public String auth(Authentication authentication) {
         Instant now = Instant.now();
@@ -36,4 +38,5 @@ public class AuthController {
                 .build();
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
+
 }

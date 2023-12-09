@@ -16,7 +16,6 @@ import com.zeroone.repository.CategoryRepository;
 import com.zeroone.repository.TicketReplyRepository;
 import com.zeroone.repository.TicketRepository;
 import com.zeroone.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,9 +53,14 @@ public class TicketService {
                 .toList();
     }
 
-    public List<TicketDto> getAllTicketsByStatus(String status) {
-        List<Ticket> ticketListByStatus = ticketRepository.findByTicketStatus(status);
-        return mapTicketsToTicketDtoList(ticketListByStatus);
+    public List<TicketDto> getAllTicketsByStatusAndUser(String status, String email) {
+        User user = userRepository.findUserByEmail(email);
+        List<Ticket> ticketListByStatusAndUser = ticketRepository.findByTicketStatusAndUser(status, user);
+
+        for (Ticket ticket : ticketListByStatusAndUser) {
+            System.out.println(ticket.getName());
+        }
+        return mapTicketsToTicketDtoList(ticketListByStatusAndUser);
     }
 
     public List<TicketDto> getAllTicketsByAttendantEmail(String email) {
@@ -64,6 +68,12 @@ public class TicketService {
         List<Ticket> ticketListByAttendant = ticketRepository.findByAttendant(user);
         return mapTicketsToTicketDtoList(ticketListByAttendant);
     }
+
+//    public List<TicketDto> getAllTicketsByUser(String email) {
+//        User user = userRepository.findUserByEmail(email);
+//        List<Ticket> ticketListByAttendant = ticketRepository.findByUser(user);
+//        return mapTicketsToTicketDtoList(ticketListByAttendant);
+//    }
 
 
     public List<Ticket> searchTicketsByContain(String name) {

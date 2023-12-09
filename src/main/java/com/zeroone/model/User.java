@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -34,7 +33,6 @@ public class User {
     @Column(nullable = false)
     private boolean isDisabled;
 
-//    @Column(nullable = false, updatable = false)
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;

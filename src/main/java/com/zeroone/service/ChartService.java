@@ -2,8 +2,6 @@ package com.zeroone.service;
 
 import com.zeroone.datatransferobjects.GET.ChartsGetDto;
 import com.zeroone.repository.TicketRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.Format;

@@ -36,7 +36,7 @@ public class TicketController {
     }
 
     @GetMapping("/ticket")
-    public ResponseEntity<?> getTicket(@RequestParam("ticketnumber") String ticketNumber) {
+    public ResponseEntity<?> getSpecificTicket(@RequestParam("ticketnumber") String ticketNumber) {
         try {
             TicketAllDataGetDto ticketData = ticketService.getTicketByNumber(ticketNumber);
             return new ResponseEntity<>(ticketData, HttpStatus.OK);
@@ -63,12 +63,19 @@ public class TicketController {
     }
 
     @GetMapping("/status")
-    public ResponseEntity<?> getTicketListByStatus(@RequestParam("ticketstatus") String status) {
-        return new ResponseEntity<>(ticketService.getAllTicketsByStatus(status), HttpStatus.OK);
+    public ResponseEntity<?> getTicketListByStatusAndUser(@RequestParam("ticketstatus") String status, @RequestParam("email") String email) {
+        System.out.println(status);
+        System.out.println(email);
+        return new ResponseEntity<>(ticketService.getAllTicketsByStatusAndUser(status, email), HttpStatus.OK);
     }
 
-    @GetMapping("user")
-    public ResponseEntity<?> getTicketListByEmail(@RequestParam("email") String email) {
+    @GetMapping("/attendant")
+    public ResponseEntity<?> getAttendantTicketListByEmail(@RequestParam("email") String email) {
+        return new ResponseEntity<>(ticketService.getAllTicketsByAttendantEmail(email), HttpStatus.OK);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getUserTicketListByEmail(@RequestParam("email") String email) {
         return new ResponseEntity<>(ticketService.getAllTicketsByAttendantEmail(email), HttpStatus.OK);
     }
     @PutMapping("/ticket")
