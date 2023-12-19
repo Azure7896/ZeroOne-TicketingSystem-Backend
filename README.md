@@ -6,7 +6,7 @@
 <p align="center">⚠️⚠️⚠️Work in progress!⚠️⚠️⚠️</b></p>
 
 Used technologies:
-- Java 17 with Spring Boot 3 (with RestAPI, Spring Security, Spring Data JPA, JavaMailSender, Lombok, Maven and more)
+- Java 21 with Spring Boot 3 (with RestAPI, Spring Security, Spring Data JPA, JavaMailSender, Lombok, Maven and more)
 - PostgreSQL Database
 
 
