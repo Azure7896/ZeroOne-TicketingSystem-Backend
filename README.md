@@ -18,41 +18,71 @@ Used applications:
 
 Check also ZeroOne-TicketingSystem-Frontend repository for more informations about client layer created in Angular.
 
-Preview (02.10.2023):
+Preview:
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/344c8ddb-2d35-4a24-b2e3-342eaaafcd6c)
+<p align="center">Login page with backend server and database status:</b></p>
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/9aefc387-a720-4648-accb-838e83ee387e)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/34c6a431-5844-4d0e-bb54-f7cff4ea2150)
 
-<p align="center">Admin view:</b></p>
+<p align="center">Register page:</b></p>
 
-<p align="center">Old view:</b></p>
-
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/30cf9dbc-41f2-41ff-a0b6-588acf30a7de)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/9b4d2be1-6640-4d03-8212-08843db02ca1)
  
-<p align="center">New view:</b></p>
+<p align="center">Administrator main page:</b></p>
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/886c26c2-6631-4074-8ff9-bd9d4f4ab35b)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/89b3b8af-7353-478b-a84b-1c123434128f)
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/7e5d9d79-821b-44c0-8cb6-2ebef56c7483)
+<p align="center">Administrator main page when refresh option is disabled:</b></p>
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/162512fd-6ae1-4563-a710-5fff2e0ea032)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/4e7a7bec-3fe4-455b-af6a-948abd2d1b4c)
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/82d1e9e8-ad30-40ea-b8ba-68a73611f152)
+<p align="center">Administrator main page when filter is selected (by my):</b></p>
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/3d8cd144-3bd4-4887-bb84-15b8da5db12e)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/ebc886ab-1b56-4f50-919b-f7d28b88ea05)
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/6f8732c1-738d-4575-a225-51dba675c8d6)
-<p align="center">Client view:</b></p>
+<p align="center">Search bar with prompts:</b></p>
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/2e755bff-dcd1-43e4-a129-002f1c450fcf)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/cbc13a7b-5cad-4210-8cf3-2be7f8183ea0)
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/fc2a0a2a-419a-415b-ab27-e563139899f7)
+<p align="center">Ticket page in administrator view:</b></p>
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/1c006cf0-5199-4ed6-ac9d-2bf5cfda6657)
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/ae279504-e05c-4547-9bbd-1a72c8c20cd6)
 
-![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/75c7ece6-79ad-4397-8764-d9596f136d70)
+<p align="center">"Show more..." functionality in ticket window:</b></p>
 
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/c42e8093-3fa7-4cb7-b3f1-e85186526a58)
+
+<p align="center">Additional charts:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/0ed9ac06-eb0c-44d3-9f3b-abc3eaf94a31)
+
+<p align="center">Users management:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/ea797626-1cfa-49fe-be2a-b0bb820dff83)
+
+<p align="center">General failure form and management:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/ad92e541-5eae-44bb-8b3e-a7485836ff03)
+
+<p align="center">User main page with active general failure:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/36ecfea5-76d5-4bbc-bb93-4a9484d9396d)
+
+<p align="center">Ticket form in user view:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/5056c3fc-6297-4b9c-b17a-940e995fd926)
+
+<p align="center">Ticket page in user view:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/de3656d7-707a-4d88-b40d-dec5de34f6a6)
+
+<p align="center">User ticket history in user view:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/07841676-c767-4eb0-bd4c-22dcefb6a981)\
+
+<p align="center">User account info:</b></p>
+
+![image](https://github.com/Azure7896/ZeroOne-TicketingSystem-Frontend/assets/95986791/b3908cb3-19dd-497a-9007-3b8e18e4c634)
 
 Preview video (from 19.04.2023): 
 
